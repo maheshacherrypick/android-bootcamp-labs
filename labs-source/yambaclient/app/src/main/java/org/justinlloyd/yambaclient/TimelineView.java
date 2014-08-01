@@ -76,6 +76,7 @@ public class TimelineView extends Activity
 		while (cursor.moveToNext())
 		{
 			StringBuilder builder = new StringBuilder();
+			builder.append(cursor.getString(cursor.getColumnIndex(StatusUpdateContract.DataColumn.USER)));
 			Log.d(TAG, builder.toString());
 		}
 	}
