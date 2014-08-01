@@ -28,5 +28,6 @@ public class DBHelper extends SQLiteOpenHelper
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
 	{
 		Log.d(TAG, "Upgrading database from version " + oldVersion + " to version " + newVersion + ".");
+		db.execSQL("drop table if exists status");
 	}
 }
