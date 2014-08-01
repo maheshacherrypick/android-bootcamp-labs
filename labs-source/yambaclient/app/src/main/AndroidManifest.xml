@@ -32,6 +32,12 @@
             android:name=".RefreshService"
             android:exported="false">
         </service>
+
+        <receiver
+            android:name=".BootReceiver"
+            android:enabled="true"
+            android:exported="false">
+        </receiver>
     </application>
 
 </manifest>
