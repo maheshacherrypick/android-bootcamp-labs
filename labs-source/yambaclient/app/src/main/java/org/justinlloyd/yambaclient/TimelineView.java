@@ -54,12 +54,6 @@ public class TimelineView extends Activity
 			refreshTimeline();
 			return true;
 		}
-		else if (id == R.id.action_post_status_update)
-		{
-			Log.d(TAG, "Post Status Update action was clicked");
-			startActivity(new Intent(this, PostStatusUpdate.class));
-			return true;
-		}
 
 		return super.onOptionsItemSelected(item);
 	}
