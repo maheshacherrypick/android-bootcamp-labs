@@ -57,6 +57,11 @@ public class TimelineView extends Activity
 
 	public void buttonRefreshTimeline(View v)
 	{
+		refreshTimeline();
+	}
+
+	private void refreshTimeline()
+	{
 		Log.d(TAG, "Refresh timeline button clicked");
 		YambaClient yambaClient = new YambaClient("student", "password");
 		try
