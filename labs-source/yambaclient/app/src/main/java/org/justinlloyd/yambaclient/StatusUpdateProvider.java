@@ -35,6 +35,7 @@ public class StatusUpdateProvider extends ContentProvider {
 				Log.d(TAG, "gotType: vnd.android.cursor.item/vnd.org.justinlloyd.yambaclient.provider.status");
 				throw new UnsupportedOperationException("Not yet implemented");
 			case StatusUpdateContract.STATUS_UPDATE_ITEM:
+				Log.d(TAG, "gotType: vnd.android.cursor.item/vnd.org.justinlloyd.yambaclient.provider.status");
 				throw new UnsupportedOperationException("Not yet implemented");
 			default:
 				Log.e(TAG, "Illegal URI supplied: " + uri);
