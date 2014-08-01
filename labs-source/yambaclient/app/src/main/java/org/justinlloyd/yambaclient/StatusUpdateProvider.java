@@ -65,6 +65,7 @@ public class StatusUpdateProvider extends ContentProvider
 		{
 			long id = values.getAsLong(StatusUpdateContract.DataColumn.ID);
 			Uri ret = ContentUris.withAppendedId(uri, id);
+			getContext().getContentResolver().notifyChange(uri, null);
 		}
 
 		throw new UnsupportedOperationException("Not yet implemented");
