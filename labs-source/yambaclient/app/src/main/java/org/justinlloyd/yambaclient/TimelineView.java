@@ -56,7 +56,8 @@ public class TimelineView extends Activity
 		}
 		catch (YambaClientException e)
 		{
-			e.printStackTrace();
+			Log.e(TAG, "Talking to the Yamba sever threw an exception");
+			Log.e(TAG, e.toString());
 		}
 	}
 }
