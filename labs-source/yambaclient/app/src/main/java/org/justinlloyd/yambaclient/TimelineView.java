@@ -1,6 +1,7 @@
 package org.justinlloyd.yambaclient;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
@@ -55,6 +56,7 @@ public class TimelineView extends Activity
 		else if (id == R.id.action_post_status_update)
 		{
 			Log.d(TAG, "Post Status Update action was clicked");
+			startActivity(new Intent(this, PostStatusUpdate.class));
 			return true;
 		}
 
