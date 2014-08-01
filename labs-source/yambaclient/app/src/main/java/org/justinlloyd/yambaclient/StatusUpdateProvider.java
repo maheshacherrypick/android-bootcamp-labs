@@ -103,16 +103,12 @@ public class StatusUpdateProvider extends ContentProvider
 	}
 
 	@Override
-	public Cursor query(Uri uri, String[] projection, String selection,
-						String[] selectionArgs, String sortOrder)
+	public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder)
 	{
-		// TODO: Implement this to handle query requests from clients.
-		throw new UnsupportedOperationException("Not yet implemented");
 	}
 
 	@Override
-	public int update(Uri uri, ContentValues values, String selection,
-					  String[] selectionArgs)
+	public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs)
 	{
 		String where;
 		switch (sURIMatcher.match(uri))
