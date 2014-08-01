@@ -7,17 +7,12 @@ import android.content.Intent;
 /**
  * An {@link IntentService} subclass for handling asynchronous task requests in
  * a service on a separate handler thread.
- * <p/>
- * TODO: Customize class - update intent actions, extra parameters and static
- * helper methods.
  */
 public class RefreshService extends IntentService
 {
-	// TODO: Rename actions, choose action names that describe tasks that this
 	// IntentService can perform, e.g. ACTION_FETCH_NEW_ITEMS
 	private static final String ACTION_REFRESH = "org.justinlloyd.yambaclient.action.REFRESH";
 
-	// TODO: Rename parameters
 	private static final String EXTRA_ITEMS_TO_RETRIEVE = "org.justinlloyd.yambaclient.extra.ITEMS_TO_RETRIEVE";
 
 	/**
@@ -26,7 +21,6 @@ public class RefreshService extends IntentService
 	 *
 	 * @see IntentService
 	 */
-	// TODO: Customize helper method
 	public static void startActionRefresh(Context context, String param1)
 	{
 		Intent intent = new Intent(context, RefreshService.class);
