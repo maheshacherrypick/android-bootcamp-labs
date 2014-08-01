@@ -54,9 +54,9 @@ public class TimelineView extends Activity
 
 	public void onActionSettings(MenuItem item)
 	{
-
+		startActivity(new Intent(this, SettingsActivity.class));
 	}
-	
+
 	public void onActionRefresh(MenuItem item)
 	{
 		Log.d(TAG, "Refresh action was clicked");
