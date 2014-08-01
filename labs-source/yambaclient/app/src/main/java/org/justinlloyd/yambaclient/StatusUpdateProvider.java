@@ -107,6 +107,7 @@ public class StatusUpdateProvider extends ContentProvider
 	public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder)
 	{
 		SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
+		qb.setTables(StatusUpdateContract.TABLE_NAME);
 	}
 
 	@Override
