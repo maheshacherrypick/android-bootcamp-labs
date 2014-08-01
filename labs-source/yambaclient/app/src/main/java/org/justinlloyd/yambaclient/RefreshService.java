@@ -93,18 +93,18 @@ public class RefreshService extends IntentService
 		{
 			List<YambaClient.Status> statusUpdates = yambaClient.getTimeline(itemsToRetrieve);
 			int count = 0;
-			for (YambaClient.Status statusUpdate : statusUpdates)
+			for (YambaClient.Status statsUpdate : statusUpdates)
 			{
 				values.clear();
-				values.put(StatusUpdateContract.DataColumn.ID, statusUpdate.getId());
-				values.put(StatusUpdateContract.DataColumn.USER, statusUpdate.getUser());
-				values.put(StatusUpdateContract.DataColumn.MESSAGE, statusUpdate.getMessage());
-				values.put(StatusUpdateContract.DataColumn.CREATED_AT, statusUpdate.getCreatedAt().getTime());
+				values.put(StatusUpdateContract.DataColumn.ID, statsUpdate.getId());
+				values.put(StatusUpdateContract.DataColumn.USER, statsUpdate.getUser());
+				values.put(StatusUpdateContract.DataColumn.MESSAGE, statsUpdate.getMessage());
+				values.put(StatusUpdateContract.DataColumn.CREATED_AT, statsUpdate.getCreatedAt().getTime());
 				Uri uri = getContentResolver().insert(StatusUpdateContract.CONTENT_URI, values);
 				if (uri != null)
 				{
 					count++;
-					Log.i(TAG, "Status Update: " + statusUpdate.getUser() + " : " + statusUpdate.getCreatedAt() + " - " + statusUpdate.getMessage());
+					Log.i(TAG, "Status Update: " + statsUpdate.getUser() + " : " + statsUpdate.getCreatedAt() + " - " + statsUpdate.getMessage());
 				}
 
 			}
