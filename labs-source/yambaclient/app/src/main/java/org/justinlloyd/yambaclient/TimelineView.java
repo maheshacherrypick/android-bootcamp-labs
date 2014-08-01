@@ -99,6 +99,8 @@ public class TimelineView extends Activity
 
 		catch (YambaClientUnauthorizedException e)
 		{
+			Log.e(TAG, "User is not authorized. Possibly incorrect name or password.");
+			Toast.makeText(this, "User is not authorized. Possibly incorrect name or password.", Toast.LENGTH_SHORT).show();
 		}
 
 		catch (YambaClientException e)
