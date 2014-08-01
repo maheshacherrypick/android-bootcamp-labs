@@ -30,7 +30,6 @@ public class RefreshService extends IntentService {
         Intent intent = new Intent(context, RefreshService.class);
         intent.setAction(ACTION_REFRESH);
         intent.putExtra(EXTRA_PARAM1, param1);
-        intent.putExtra(EXTRA_PARAM2, param2);
         context.startService(intent);
     }
 
@@ -44,7 +43,6 @@ public class RefreshService extends IntentService {
             final String action = intent.getAction();
             if (ACTION_REFRESH.equals(action)) {
                 final String param1 = intent.getStringExtra(EXTRA_PARAM1);
-                final String param2 = intent.getStringExtra(EXTRA_PARAM2);
                 handleActionRefresh(param1, param2);
             }
         }
