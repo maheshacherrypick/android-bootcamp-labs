@@ -10,4 +10,8 @@
           android:showAsAction="ifRoom"
           android:icon="@drawable/ic_action_refresh"
           android:title="Refresh" />
+    <item android:id="@+id/action_post_status_update"
+          android:showAsAction="ifRoom"
+          android:icon="@drawable/ic_action_read"
+          android:title="Post Status Update" />
 </menu>
