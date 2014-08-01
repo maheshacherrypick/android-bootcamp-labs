@@ -32,6 +32,8 @@ public class StatusUpdateProvider extends ContentProvider {
 		{
 			case StatusUpdateContract.STATUS_UPDATE_DIR:
 				throw new UnsupportedOperationException("Not yet implemented");
+			case StatusUpdateContract.STATUS_UPDATE_ITEM:
+				throw new UnsupportedOperationException("Not yet implemented");
 		}
     }
 
