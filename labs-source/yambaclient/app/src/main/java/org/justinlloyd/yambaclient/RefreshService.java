@@ -92,6 +92,7 @@ public class RefreshService extends IntentService
 		try
 		{
 			List<YambaClient.Status> statusUpdates = yambaClient.getTimeline(itemsToRetrieve);
+			int count = 0;
 			for (YambaClient.Status statsUpdate : statusUpdates)
 			{
 				values.clear();
