@@ -17,7 +17,7 @@ public class RefreshService extends IntentService {
     private static final String ACTION_REFRESH = "org.justinlloyd.yambaclient.action.REFRESH";
 
     // TODO: Rename parameters
-    private static final String EXTRA_PARAM1 = "org.justinlloyd.yambaclient.extra.PARAM1";
+    private static final String EXTRA_PARAM1 = "org.justinlloyd.yambaclient.extra.ITEMS_TO_RETRIEVE";
     private static final String EXTRA_PARAM2 = "org.justinlloyd.yambaclient.extra.PARAM2";
 
     /**
