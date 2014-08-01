@@ -76,6 +76,7 @@ public class TimelineView extends Activity
 		while (cursor.moveToNext())
 		{
 			StringBuilder builder = new StringBuilder();
+			Log.d(TAG, builder.toString());
 		}
 	}
 }
