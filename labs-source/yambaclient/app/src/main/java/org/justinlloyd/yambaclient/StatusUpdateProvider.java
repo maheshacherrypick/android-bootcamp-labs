@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.net.Uri;
 
 public class StatusUpdateProvider extends ContentProvider {
+	private static final String TAG = StatusUpdateProvider.class.getName();
+
     public StatusUpdateProvider() {
     }
 
