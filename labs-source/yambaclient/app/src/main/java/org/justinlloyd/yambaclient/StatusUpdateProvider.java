@@ -122,6 +122,7 @@ public class StatusUpdateProvider extends ContentProvider
 		String orderBy = (TextUtils.isEmpty(sortOrder)) ? StatusUpdateContract.DEFAULT_SORT : sortOrder;
 		SQLiteDatabase db = dbHelper.getReadableDatabase();
 		Cursor cursor = qb.query(db, projection, selection, selectionArgs, null, null, orderBy);
+		cursor.setNotificationUri(getContext().getContentResolver(), uri);
 	}
 
 	@Override
