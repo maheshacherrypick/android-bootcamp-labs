@@ -1,6 +1,7 @@
 package org.justinlloyd.yambaclient;
 
 import android.app.IntentService;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -85,6 +86,7 @@ public class RefreshService extends IntentService
 			return;
 		}
 
+		ContentValues values = new ContentValues();
 		YambaClient yambaClient = new YambaClient(username, password);
 		try
 		{
