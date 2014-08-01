@@ -46,18 +46,19 @@ public class TimelineView extends Activity
 		{
 			return true;
 		}
-		else if (id==R.id.action_refresh)
+		else if (id == R.id.action_refresh)
 		{
+			Log.d(TAG, "Refresh action was clicked");
 			return true;
 		}
-		
+
 		return super.onOptionsItemSelected(item);
 	}
 
 	public void buttonRefreshTimeline(View v)
 	{
 		Log.d(TAG, "Refresh timeline button clicked");
-		YambaClient yambaClient = new YambaClient("student","password");
+		YambaClient yambaClient = new YambaClient("student", "password");
 		try
 		{
 			List<YambaClient.Status> statusUpdates = yambaClient.getTimeline(100);
