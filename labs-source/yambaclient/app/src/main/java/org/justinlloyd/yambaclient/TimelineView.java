@@ -53,7 +53,12 @@ public class TimelineView extends Activity
 		try
 		{
 			List<YambaClient.Status> statusUpdates = yambaClient.getTimeline(100);
+			for (YambaClient.Status statsUpdate : statusUpdates)
+			{
+			}
+
 		}
+
 		catch (YambaClientException e)
 		{
 			Log.e(TAG, "Talking to the Yamba sever threw an exception");
