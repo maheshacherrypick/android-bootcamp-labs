@@ -19,6 +19,7 @@ public class DBHelper extends SQLiteOpenHelper
 	public void onCreate(SQLiteDatabase db)
 	{
 		Log.d(TAG, "Creating new database for Status Updates...");
+		String sql = "create table status";
 	}
 
 	@Override
