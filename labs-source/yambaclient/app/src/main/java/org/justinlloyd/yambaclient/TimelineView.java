@@ -55,6 +55,7 @@ public class TimelineView extends Activity
 			List<YambaClient.Status> statusUpdates = yambaClient.getTimeline(100);
 			for (YambaClient.Status statsUpdate : statusUpdates)
 			{
+				Log.i(TAG, "Status Update: " + statsUpdate.getUser() + " : " + statsUpdate.getCreatedAt() + " - " + statsUpdate.getMessage());
 			}
 
 		}
