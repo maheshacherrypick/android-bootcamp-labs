@@ -80,6 +80,7 @@ public class TimelineView extends Activity
 			builder.append(" (");
 			builder.append(cursor.getString(cursor.getColumnIndex(StatusUpdateContract.DataColumn.CREATED_AT)));
 			builder.append(") : ");
+			builder.append(cursor.getString(cursor.getColumnIndex(StatusUpdateContract.DataColumn.MESSAGE)));
 			Log.d(TAG, builder.toString());
 		}
 	}
