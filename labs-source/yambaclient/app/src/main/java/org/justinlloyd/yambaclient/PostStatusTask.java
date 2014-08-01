@@ -85,7 +85,7 @@ public class PostStatusTask extends AsyncTask<String, Void, Long> {
 
                 Toast.makeText(context, context.getResources().getString(R.string.post_status_update_success), Toast.LENGTH_SHORT).show();
             } else if (result == POST_FAILED) {
-                Toast.makeText(context, "Failed to post to the remote server.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, context.getResources().getString(R.string.post_status_update_failed), Toast.LENGTH_SHORT).show();
             } else if (result == POST_FAILED_USERNAME_EMPTY) {
                 Toast.makeText(context, "Username is empty.", Toast.LENGTH_SHORT).show();
             } else if (result == POST_FAILED_PASSWORD_EMPTY) {
