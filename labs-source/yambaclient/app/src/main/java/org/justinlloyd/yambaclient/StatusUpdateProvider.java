@@ -113,6 +113,7 @@ public class StatusUpdateProvider extends ContentProvider
 			case StatusUpdateContract.STATUS_UPDATE_DIR:
 				break;
 			case StatusUpdateContract.STATUS_UPDATE_ITEM:
+				qb.appendWhere(StatusUpdateContract.DataColumn.ID + "=" + uri.getLastPathSegment());
 				break;
 			default:
 				throw new IllegalArgumentException("Illegal uri: " + uri);
