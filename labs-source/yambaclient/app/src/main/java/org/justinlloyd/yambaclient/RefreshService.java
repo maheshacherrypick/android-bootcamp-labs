@@ -33,7 +33,7 @@ public class RefreshService extends IntentService
 	 *
 	 * @see IntentService
 	 */
-	public static void startActionRefresh(Context context, String itemsToRetrieve)
+	public static void startActionRefresh(Context context, int itemsToRetrieve)
 	{
 		Intent intent = new Intent(context, RefreshService.class);
 		intent.setAction(ACTION_REFRESH);
