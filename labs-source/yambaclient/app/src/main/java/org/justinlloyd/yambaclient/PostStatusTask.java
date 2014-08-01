@@ -31,7 +31,7 @@ public class PostStatusTask extends AsyncTask<String, Void, Long> {
     protected void onPreExecute() {
         super.onPreExecute();
         Log.d(PostStatusTask.class.getName(), "onPreExecute");
-        progress = ProgressDialog.show(context, context.getResources().getString(R.string.post_status_update_progress_title), "Please wait...");
+        progress = ProgressDialog.show(context, context.getResources().getString(R.string.post_status_update_progress_title), context.getResources().getString(R.string.post_status_update_progress_message));
         progress.setCancelable(true);
     }
 
