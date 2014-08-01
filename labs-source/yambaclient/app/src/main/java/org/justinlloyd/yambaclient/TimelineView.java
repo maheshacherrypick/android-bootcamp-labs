@@ -2,8 +2,10 @@ package org.justinlloyd.yambaclient;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -72,6 +74,10 @@ public class TimelineView extends Activity
 	private void refreshTimeline()
 	{
 		Log.d(TAG, "Refresh timeline button clicked");
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+		final String username = prefs.getString("username", "");
+		final String password = prefs.getString("password", "");
+
 		YambaClient yambaClient = new YambaClient("student", "password");
 		try
 		{
