@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.marakana.android.yamba.clientlib.YambaClient;
 import com.marakana.android.yamba.clientlib.YambaClientException;
+import com.marakana.android.yamba.clientlib.YambaClientUnauthorizedException;
 
 import java.util.List;
 
@@ -85,7 +86,7 @@ public class TimelineView extends Activity
 			return;
 		}
 
-		YambaClient yambaClient = new YambaClient("student", "password");
+		YambaClient yambaClient = new YambaClient(username, password);
 		try
 		{
 			List<YambaClient.Status> statusUpdates = yambaClient.getTimeline(100);
