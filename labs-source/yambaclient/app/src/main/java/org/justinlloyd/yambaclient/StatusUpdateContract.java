@@ -1,5 +1,7 @@
 package org.justinlloyd.yambaclient;
 
+import android.provider.BaseColumns;
+
 public class StatusUpdateContract
 {
 	public static final String DB_NAME = "timeline.db";
@@ -8,6 +10,6 @@ public class StatusUpdateContract
 
 	public class DataColumn
 	{
-
+		public static final String ID = BaseColumns._ID;
 	}
 }
