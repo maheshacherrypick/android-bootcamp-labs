@@ -12,4 +12,5 @@
     <string name="post_status_update_failed">Failed to post to the remote server.</string>
     <string name="post_status_update_username_empty">Username is empty.</string>
     <string name="post_status_update_password_empty">Password is empty.</string>
+    <string name="post_status_update_unauthorized">User is not authorized. Possibly incorrect name or password.</string>
 </resources>
