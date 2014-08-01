@@ -11,6 +11,12 @@ public class StatusUpdateProvider extends ContentProvider {
 
 	private static final UriMatcher sURIMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 
+	static
+	{
+		sURIMatcher.addURI(StatusUpdateContract.AUTHORITY, StatusUpdateContract.TABLE_NAME, StatusUpdateContract.STATUS_UPDATE_DIR);
+		sURIMatcher.addURI(StatusUpdateContract.AUTHORITY, StatusUpdateContract.TABLE_NAME + "/#", StatusUpdateContract.STATUS_UPDATE_ITEM);
+	}
+
     public StatusUpdateProvider() {
     }
 
