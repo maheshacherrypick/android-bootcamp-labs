@@ -1,6 +1,7 @@
 package org.justinlloyd.yambaclient;
 
 import android.content.ContentProvider;
+import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.UriMatcher;
 import android.database.Cursor;
@@ -63,6 +64,7 @@ public class StatusUpdateProvider extends ContentProvider
 		if (rowId != -1)
 		{
 			long id = values.getAsLong(StatusUpdateContract.DataColumn.ID);
+			Uri ret = ContentUris.withAppendedId(uri, id);
 		}
 
 		throw new UnsupportedOperationException("Not yet implemented");
