@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.marakana.android.yamba.clientlib.YambaClient;
 import com.marakana.android.yamba.clientlib.YambaClientException;
@@ -79,6 +80,8 @@ public class TimelineView extends Activity
 		final String password = prefs.getString("password", "");
 		if (username.isEmpty() || password.isEmpty())
 		{
+			Log.d(TAG, "Cannot refresh time line, no username or password set in preferences.");
+			Toast.makeText(this, "Cannot refresh time line, no username or password set in preferences.", Toast.LENGTH_SHORT).show();
 			return;
 		}
 
