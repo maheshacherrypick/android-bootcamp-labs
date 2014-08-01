@@ -66,7 +66,6 @@ public class RefreshService extends IntentService
 	 */
 	private void handleActionRefresh(String param1)
 	{
-		Log.d(TAG, "Refresh timeline button clicked");
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		final String username = prefs.getString("username", "");
 		final String password = prefs.getString("password", "");
