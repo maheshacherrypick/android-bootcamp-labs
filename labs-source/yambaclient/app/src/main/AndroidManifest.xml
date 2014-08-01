@@ -42,7 +42,7 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
             </intent-filter>
             <intent-filter>
-                <action android:name="com.thenewcircle.yamba.action.UPDATED_INTERVAL" />
+                <action android:name="org.justinlloyd.yambaclient.action.UPDATED_INTERVAL" />
             </intent-filter>
         </receiver>
     </application>
