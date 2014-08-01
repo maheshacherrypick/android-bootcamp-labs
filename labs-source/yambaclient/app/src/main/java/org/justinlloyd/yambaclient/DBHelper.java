@@ -11,7 +11,7 @@ public class DBHelper extends SQLiteOpenHelper
 
 	public DBHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version)
 	{
-		super(context, name, factory, version);
+		super(context, "timeline.db", null, 1);
 	}
 
 	@Override
