@@ -55,6 +55,7 @@ public class TimelineView extends Activity
 		else if (id == R.id.action_post_status_update)
 		{
 			Log.d(TAG, "Post Status Update action was clicked");
+			return true;
 		}
 
 		return super.onOptionsItemSelected(item);
