@@ -35,7 +35,6 @@ public class PostStatusTask extends AsyncTask<String, Void, Long> {
 
     @Override
     protected Long doInBackground(String... params) {
-        YambaClient yc = new YambaClient("student", "password");
         String username = PreferenceManager.getDefaultSharedPreferences(context).getString("username", "");
         if (username.isEmpty()) {
             Log.e(TAG, "Username preference is empty, cannot post to server.");
@@ -50,7 +49,8 @@ public class PostStatusTask extends AsyncTask<String, Void, Long> {
             return POST_FAILED_PASSWORD_EMPTY;
         }
 
-        try {
+		YambaClient yc = new YambaClient(username, password);
+s        try {
             long startTime = System.currentTimeMillis();
             yc.postStatus(params[0]);
             long endTime = System.currentTimeMillis();
