@@ -30,6 +30,8 @@ public class StatusUpdateProvider extends ContentProvider {
     public String getType(Uri uri) {
 		switch (sURIMatcher.match(uri))
 		{
+			case StatusUpdateContract.STATUS_UPDATE_DIR:
+				throw new UnsupportedOperationException("Not yet implemented");
 		}
     }
 
