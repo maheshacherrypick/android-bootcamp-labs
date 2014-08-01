@@ -4,6 +4,7 @@ import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Debug;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.Toast;
@@ -49,24 +50,26 @@ public class RefreshService extends IntentService
 	@Override
 	protected void onHandleIntent(Intent intent)
 	{
-		if (intent != null)
+		if (intent == null)
 		{
-			final String action = intent.getAction();
-			if (ACTION_REFRESH.equals(action))
+			return;
+		}
+
+		final String action = intent.getAction();
+		if (ACTION_REFRESH.equals(action))
+		{
+			int itemsToRetrieve;
+			try
 			{
-				int itemsToRetrieve;
-				try
-				{
-					itemsToRetrieve = Integer.parseInt(intent.getStringExtra(EXTRA_ITEMS_TO_RETRIEVE));
-				}
-
-				catch (NumberFormatException ex)
-				{
-					itemsToRetrieve = 100;
-				}
-
-				handleActionRefresh(itemsToRetrieve);
+				itemsToRetrieve = Integer.parseInt(intent.getStringExtra(EXTRA_ITEMS_TO_RETRIEVE));
 			}
+
+			catch (NumberFormatException ex)
+			{
+				itemsToRetrieve = 100;
+			}
+
+			handleActionRefresh(itemsToRetrieve);
 		}
 	}
 
@@ -107,6 +110,7 @@ public class RefreshService extends IntentService
 		{
 			Log.e(TAG, "Talking to the Yamba sever threw an exception");
 			Log.e(TAG, e.toString());
-		}	}
+		}
+	}
 
 }
