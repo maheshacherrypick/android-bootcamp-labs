@@ -97,6 +97,7 @@ public class RefreshService extends IntentService
 				values.put(StatusUpdateContract.DataColumn.ID, statsUpdate.getId());
 				values.put(StatusUpdateContract.DataColumn.USER, statsUpdate.getUser());
 				values.put(StatusUpdateContract.DataColumn.MESSAGE, statsUpdate.getMessage());
+				values.put(StatusUpdateContract.DataColumn.CREATED_AT, statsUpdate.getCreatedAt().getTime());
 				Log.i(TAG, "Status Update: " + statsUpdate.getUser() + " : " + statsUpdate.getCreatedAt() + " - " + statsUpdate.getMessage());
 			}
 
