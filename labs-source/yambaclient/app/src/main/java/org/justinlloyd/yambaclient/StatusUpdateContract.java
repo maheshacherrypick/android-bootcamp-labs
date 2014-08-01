@@ -8,6 +8,8 @@ public class StatusUpdateContract
 	public static final int DB_VERSION = 1;
 	public static final String TABLE_NAME = "status";
 
+	public static final String AUTHORITY = "org.justinlloyd.yambaclient.StatusUpdateProvider";
+
 	public class DataColumn
 	{
 		public static final String ID = BaseColumns._ID;
