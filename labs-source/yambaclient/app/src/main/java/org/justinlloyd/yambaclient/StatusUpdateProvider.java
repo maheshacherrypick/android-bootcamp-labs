@@ -39,11 +39,7 @@ public class StatusUpdateProvider extends ContentProvider
 				break;
 			case StatusUpdateContract.STATUS_UPDATE_ITEM:
 				long id = ContentUris.parseId(uri);
-				where = StatusUpdateContract.DataColumn.ID
-						+ "="
-						+ id
-						+ (TextUtils.isEmpty(selection) ? "" : " and ( "
-						+ selection + " )");
+				where = StatusUpdateContract.DataColumn.ID + "=" + id + (TextUtils.isEmpty(selection) ? "" : " and ( " + selection + " )");
 				break;
 			default:
 				throw new IllegalArgumentException("Illegal uri: " + uri);
@@ -138,7 +134,7 @@ public class StatusUpdateProvider extends ContentProvider
 		{
 			getContext().getContentResolver().notifyChange(uri, null);
 		}
-		
+
 		Log.d(TAG, "updated records: " + ret);
 		return ret;
 	}
