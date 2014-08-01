@@ -22,6 +22,7 @@ public class BootReceiver extends BroadcastReceiver
 	public void onReceive(Context context, Intent intent)
 	{
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+		long refreshInterval = Long.parseLong(prefs.getString("refresh_interval", Long.toString(DEFAULT_REFRESH_INTERVAL)));
 
 		PendingIntent pendingRefresh = PendingIntent.getService(context, -1, new Intent(context, RefreshService.class), PendingIntent.FLAG_UPDATE_CURRENT);
 		AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
