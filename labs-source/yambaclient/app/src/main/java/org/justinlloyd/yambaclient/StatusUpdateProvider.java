@@ -32,10 +32,10 @@ public class StatusUpdateProvider extends ContentProvider {
 		switch (sURIMatcher.match(uri))
 		{
 			case StatusUpdateContract.STATUS_UPDATE_DIR:
-				Log.d(TAG, "gotType: vnd.android.cursor.dir/vnd.org.justinlloyd.yambaclient.provider.status");
+				Log.d(TAG, "gotType: " + StatusUpdateContract.STATUS_TYPE_DIR);
 				throw new UnsupportedOperationException("Not yet implemented");
 			case StatusUpdateContract.STATUS_UPDATE_ITEM:
-				Log.d(TAG, "gotType: vnd.android.cursor.item/vnd.org.justinlloyd.yambaclient.provider.status");
+				Log.d(TAG, "gotType: " + StatusUpdateContract.STATUS_TYPE_ITEM);
 				throw new UnsupportedOperationException("Not yet implemented");
 			default:
 				Log.e(TAG, "Illegal URI supplied: " + uri);
