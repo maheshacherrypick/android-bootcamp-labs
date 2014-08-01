@@ -75,38 +75,6 @@ public class TimelineView extends Activity
 
 	private void refreshTimeline()
 	{
-		Log.d(TAG, "Refresh timeline button clicked");
-		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-		final String username = prefs.getString("username", "");
-		final String password = prefs.getString("password", "");
-		if (username.isEmpty() || password.isEmpty())
-		{
-			Log.d(TAG, "Cannot refresh time line, no username or password set in preferences.");
-			Toast.makeText(this, "Cannot refresh time line, no username or password set in preferences.", Toast.LENGTH_SHORT).show();
-			return;
-		}
-
-		YambaClient yambaClient = new YambaClient(username, password);
-		try
-		{
-			List<YambaClient.Status> statusUpdates = yambaClient.getTimeline(100);
-			for (YambaClient.Status statsUpdate : statusUpdates)
-			{
-				Log.i(TAG, "Status Update: " + statsUpdate.getUser() + " : " + statsUpdate.getCreatedAt() + " - " + statsUpdate.getMessage());
-			}
-
-		}
-
-		catch (YambaClientUnauthorizedException e)
-		{
-			Log.e(TAG, "User is not authorized. Possibly incorrect name or password.");
-			Toast.makeText(this, "User is not authorized. Possibly incorrect name or password.", Toast.LENGTH_SHORT).show();
-		}
-
-		catch (YambaClientException e)
-		{
-			Log.e(TAG, "Talking to the Yamba sever threw an exception");
-			Log.e(TAG, e.toString());
-		}
+		RefreshService.startActionRefresh(this, 100);
 	}
 }
