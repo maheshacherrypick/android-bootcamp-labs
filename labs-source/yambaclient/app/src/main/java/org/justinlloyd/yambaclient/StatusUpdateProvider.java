@@ -34,6 +34,8 @@ public class StatusUpdateProvider extends ContentProvider {
 				throw new UnsupportedOperationException("Not yet implemented");
 			case StatusUpdateContract.STATUS_UPDATE_ITEM:
 				throw new UnsupportedOperationException("Not yet implemented");
+			default:
+				throw new IllegalArgumentException("Illegal URI supplied: " + uri);
 		}
     }
 
