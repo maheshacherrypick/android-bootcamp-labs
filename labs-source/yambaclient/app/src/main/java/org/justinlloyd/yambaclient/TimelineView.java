@@ -49,6 +49,7 @@ public class TimelineView extends Activity
 		else if (id == R.id.action_refresh)
 		{
 			Log.d(TAG, "Refresh action was clicked");
+			refreshTimeline();
 			return true;
 		}
 
