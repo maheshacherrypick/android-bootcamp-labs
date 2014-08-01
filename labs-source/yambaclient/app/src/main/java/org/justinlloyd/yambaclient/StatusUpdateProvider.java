@@ -108,6 +108,10 @@ public class StatusUpdateProvider extends ContentProvider
 	{
 		SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
 		qb.setTables(StatusUpdateContract.TABLE_NAME);
+		switch (sURIMatcher.match(uri))
+		{
+		}
+		
 	}
 
 	@Override
