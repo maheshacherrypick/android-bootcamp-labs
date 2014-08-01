@@ -52,6 +52,9 @@ public class TimelineView extends Activity
 			refreshTimeline();
 			return true;
 		}
+		else if (id == R.id.action_post_status_update)
+		{
+		}
 
 		return super.onOptionsItemSelected(item);
 	}
