@@ -36,7 +36,7 @@ public class StatusUpdateProvider extends ContentProvider {
 				return StatusUpdateContract.STATUS_TYPE_DIR;
 			case StatusUpdateContract.STATUS_UPDATE_ITEM:
 				Log.d(TAG, "gotType: " + StatusUpdateContract.STATUS_TYPE_ITEM);
-				throw new UnsupportedOperationException("Not yet implemented");
+				return StatusUpdateContract.STATUS_TYPE_ITEM;
 			default:
 				Log.e(TAG, "Illegal URI supplied: " + uri);
 				throw new IllegalArgumentException("Illegal URI supplied: " + uri);
