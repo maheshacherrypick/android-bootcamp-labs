@@ -15,6 +15,7 @@ public class StatusUpdateContract
 	public static final int STATUS_UPDATE_DIR = 2;
 	public static final String STATUS_TYPE_ITEM = "vnd.android.cursor.item/vnd.org.justinlloyd.yambaclient.provider.status";
 	public static final String STATUS_TYPE_DIR = "vnd.android.cursor.dir/vnd.org.justinlloyd.yambaclient.provider.status";
+	public static final String DEFAULT_SORT = DataColumn.CREATED_AT + " DESC";
 
 	public class DataColumn
 	{
