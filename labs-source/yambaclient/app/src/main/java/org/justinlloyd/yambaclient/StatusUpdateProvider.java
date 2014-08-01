@@ -118,7 +118,28 @@ public class StatusUpdateProvider extends ContentProvider
 	public int update(Uri uri, ContentValues values, String selection,
 					  String[] selectionArgs)
 	{
-		// TODO: Implement this to handle requests to update one or more rows.
-		throw new UnsupportedOperationException("Not yet implemented");
+		String where;
+		switch (sURIMatcher.match(uri))
+		{
+			case StatusUpdateContract.STATUS_UPDATE_DIR:
+				where = selection;
+				break;
+			case StatusUpdateContract.STATUS_UPDATE_ITEM:
+				long id = ContentUris.parseId(uri);
+				where = StatusUpdateContract.DataColumn.ID + "=" + id + (TextUtils.isEmpty(selection) ? "" : " and ( " + selection + " )");
+				break;
+			default:
+				throw new IllegalArgumentException("Illegal uri: " + uri);
+		}
+
+		SQLiteDatabase db = dbHelper.getWritableDatabase();
+		int ret = db.update(StatusUpdateContract.TABLE_NAME, values, where, selectionArgs);
+		if (ret > 0)
+		{
+			getContext().getContentResolver().notifyChange(uri, null);
+		}
+		
+		Log.d(TAG, "updated records: " + ret);
+		return ret;
 	}
 }
