@@ -77,6 +77,10 @@ public class TimelineView extends Activity
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		final String username = prefs.getString("username", "");
 		final String password = prefs.getString("password", "");
+		if (username.isEmpty() || password.isEmpty())
+		{
+			return;
+		}
 
 		YambaClient yambaClient = new YambaClient("student", "password");
 		try
