@@ -54,7 +54,17 @@ public class RefreshService extends IntentService
 			final String action = intent.getAction();
 			if (ACTION_REFRESH.equals(action))
 			{
-				final int itemsToRetrieve = Integer.parseInt(intent.getStringExtra(EXTRA_ITEMS_TO_RETRIEVE));
+				int itemsToRetrieve;
+				try
+				{
+					itemsToRetrieve = Integer.parseInt(intent.getStringExtra(EXTRA_ITEMS_TO_RETRIEVE));
+				}
+
+				catch (NumberFormatException ex)
+				{
+					itemsToRetrieve = 100;
+				}
+
 				handleActionRefresh(itemsToRetrieve);
 			}
 		}
