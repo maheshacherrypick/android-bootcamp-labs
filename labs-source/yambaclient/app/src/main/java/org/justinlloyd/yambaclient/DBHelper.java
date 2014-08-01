@@ -4,6 +4,7 @@ package org.justinlloyd.yambaclient;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 public class DBHelper extends SQLiteOpenHelper
 {
@@ -17,7 +18,7 @@ public class DBHelper extends SQLiteOpenHelper
 	@Override
 	public void onCreate(SQLiteDatabase db)
 	{
-
+		Log.d(TAG, "Creating new database for Status Updates...");
 	}
 
 	@Override
