@@ -66,6 +66,8 @@ public class TimelineView extends Activity
 
 	public void onActionPostStatusUpdate(MenuItem item)
 	{
+		Log.d(TAG, "Post Status Update action was clicked");
+		startActivity(new Intent(this, PostStatusUpdate.class));
 	}
 
 	public void buttonRefreshTimeline(View v)
