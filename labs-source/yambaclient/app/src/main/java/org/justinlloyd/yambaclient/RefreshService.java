@@ -74,6 +74,8 @@ public class RefreshService extends IntentService
 		}
 		else
 		{
+			Log.e(TAG, "Unknown intent action specified");
+			return;
 		}
 
 	}
