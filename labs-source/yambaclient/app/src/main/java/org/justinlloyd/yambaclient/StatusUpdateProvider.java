@@ -75,6 +75,7 @@ public class StatusUpdateProvider extends ContentProvider
 	@Override
 	public boolean onCreate()
 	{
+		Log.d(TAG, "Creating provider for status updates.");
 		dbHelper = new DBHelper(getContext());
 		return false;
 	}
