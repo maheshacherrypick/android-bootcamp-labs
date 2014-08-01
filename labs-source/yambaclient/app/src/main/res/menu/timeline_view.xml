@@ -9,6 +9,7 @@
     <item android:id="@+id/action_refresh"
           android:showAsAction="ifRoom"
           android:icon="@drawable/ic_action_refresh"
+          android:onClick="onActionRefresh"
           android:title="Refresh" />
     <item android:id="@+id/action_post_status_update"
           android:showAsAction="ifRoom"
