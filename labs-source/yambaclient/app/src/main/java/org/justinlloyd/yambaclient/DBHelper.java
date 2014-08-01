@@ -13,7 +13,7 @@ public class DBHelper extends SQLiteOpenHelper
 
 	public DBHelper(Context context)
 	{
-		super(context, StatusUpdateContract.DB_NAME, null, 1);
+		super(context, StatusUpdateContract.DB_NAME, null, StatusUpdateContract.DB_VERSION);
 	}
 
 	@Override
