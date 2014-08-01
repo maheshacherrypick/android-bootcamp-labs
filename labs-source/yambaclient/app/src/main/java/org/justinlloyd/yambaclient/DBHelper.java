@@ -20,7 +20,9 @@ public class DBHelper extends SQLiteOpenHelper
 	public void onCreate(SQLiteDatabase db)
 	{
 		Log.d(TAG, "Creating new database for Status Updates...");
-		String sql = "create table " + StatusUpdateContract.TABLE_NAME + " (" + BaseColumns._ID + " int primary key, user text, message text, created_at int)";
+		String sql = String.format("create table %s (%s int primary key, user text, message text, created_at int)",
+				StatusUpdateContract.TABLE_NAME,
+				BaseColumns._ID);
 		db.execSQL(sql);
 		Log.d(TAG, "Created database using the following SQL: " + sql);
 	}
