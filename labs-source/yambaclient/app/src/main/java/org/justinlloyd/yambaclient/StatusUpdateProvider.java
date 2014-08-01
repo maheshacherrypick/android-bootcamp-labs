@@ -124,6 +124,7 @@ public class StatusUpdateProvider extends ContentProvider
 		Cursor cursor = qb.query(db, projection, selection, selectionArgs, null, null, orderBy);
 		cursor.setNotificationUri(getContext().getContentResolver(), uri);
 
+		Log.d(TAG, "Queried records: " + cursor.getCount());
 		return cursor;
 	}
 
