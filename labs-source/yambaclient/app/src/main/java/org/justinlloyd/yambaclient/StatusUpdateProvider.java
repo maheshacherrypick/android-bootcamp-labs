@@ -33,7 +33,7 @@ public class StatusUpdateProvider extends ContentProvider {
 		{
 			case StatusUpdateContract.STATUS_UPDATE_DIR:
 				Log.d(TAG, "gotType: " + StatusUpdateContract.STATUS_TYPE_DIR);
-				throw new UnsupportedOperationException("Not yet implemented");
+				return StatusUpdateContract.STATUS_TYPE_DIR;
 			case StatusUpdateContract.STATUS_UPDATE_ITEM:
 				Log.d(TAG, "gotType: " + StatusUpdateContract.STATUS_TYPE_ITEM);
 				throw new UnsupportedOperationException("Not yet implemented");
