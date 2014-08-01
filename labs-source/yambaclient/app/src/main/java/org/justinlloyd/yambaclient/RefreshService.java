@@ -64,7 +64,7 @@ public class RefreshService extends IntentService
 	 * Handle action Refresh in the provided background thread with the provided
 	 * parameters.
 	 */
-	private void handleActionRefresh(String param1)
+	private void handleActionRefresh(String itemsToRetrieve)
 	{
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		final String username = prefs.getString("username", "");
