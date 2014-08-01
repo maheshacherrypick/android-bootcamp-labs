@@ -26,7 +26,7 @@ public class RefreshService extends IntentService {
      * @see IntentService
      */
     // TODO: Customize helper method
-    public static void startActionRefresh(Context context, String param1, String param2) {
+    public static void startActionRefresh(Context context, String param1) {
         Intent intent = new Intent(context, RefreshService.class);
         intent.setAction(ACTION_REFRESH);
         intent.putExtra(EXTRA_PARAM1, param1);
@@ -43,7 +43,7 @@ public class RefreshService extends IntentService {
             final String action = intent.getAction();
             if (ACTION_REFRESH.equals(action)) {
                 final String param1 = intent.getStringExtra(EXTRA_PARAM1);
-                handleActionRefresh(param1, param2);
+                handleActionRefresh(param1);
             }
         }
     }
@@ -52,7 +52,7 @@ public class RefreshService extends IntentService {
      * Handle action Refresh in the provided background thread with the provided
      * parameters.
      */
-    private void handleActionRefresh(String param1, String param2) {
+    private void handleActionRefresh(String param1) {
         // TODO: Handle action Refresh
         throw new UnsupportedOperationException("Not yet implemented");
     }
