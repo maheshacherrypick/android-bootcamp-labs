@@ -58,6 +58,7 @@ public class StatusUpdateProvider extends ContentProvider
 			throw new IllegalArgumentException("Illegal uri: " + uri + " insert cannot handle multiple items");
 		}
 
+		SQLiteDatabase db = dbHelper.getWritableDatabase();
 		throw new UnsupportedOperationException("Not yet implemented");
 	}
 
