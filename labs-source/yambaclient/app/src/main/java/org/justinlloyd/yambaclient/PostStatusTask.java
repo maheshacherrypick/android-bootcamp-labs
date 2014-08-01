@@ -50,7 +50,7 @@ public class PostStatusTask extends AsyncTask<String, Void, Long> {
         }
 
 		YambaClient yc = new YambaClient(username, password);
-s        try {
+        try {
             long startTime = System.currentTimeMillis();
             yc.postStatus(params[0]);
             long endTime = System.currentTimeMillis();
