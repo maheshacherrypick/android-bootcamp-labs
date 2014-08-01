@@ -18,7 +18,7 @@ public class RefreshService extends IntentService
 	private static final String ACTION_REFRESH = "org.justinlloyd.yambaclient.action.REFRESH";
 
 	// TODO: Rename parameters
-	private static final String EXTRA_PARAM1 = "org.justinlloyd.yambaclient.extra.ITEMS_TO_RETRIEVE";
+	private static final String EXTRA_ITEMS_TO_RETRIEVE = "org.justinlloyd.yambaclient.extra.ITEMS_TO_RETRIEVE";
 
 	/**
 	 * Starts this service to perform action Refresh with the given parameters. If
@@ -31,7 +31,7 @@ public class RefreshService extends IntentService
 	{
 		Intent intent = new Intent(context, RefreshService.class);
 		intent.setAction(ACTION_REFRESH);
-		intent.putExtra(EXTRA_PARAM1, param1);
+		intent.putExtra(EXTRA_ITEMS_TO_RETRIEVE, param1);
 		context.startService(intent);
 	}
 
@@ -48,7 +48,7 @@ public class RefreshService extends IntentService
 			final String action = intent.getAction();
 			if (ACTION_REFRESH.equals(action))
 			{
-				final String param1 = intent.getStringExtra(EXTRA_PARAM1);
+				final String param1 = intent.getStringExtra(EXTRA_ITEMS_TO_RETRIEVE);
 				handleActionRefresh(param1);
 			}
 		}
