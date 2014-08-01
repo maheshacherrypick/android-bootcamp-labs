@@ -42,9 +42,16 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
             </intent-filter>
             <intent-filter>
-                <action android:name="org.justinlloyd.yambaclient.action.UPDATED_INTERVAL" />
+                <action android:name="org.justinlloyd.yambaclient.action.UPDATED_INTERVAL"/>
             </intent-filter>
         </receiver>
+
+        <provider
+            android:name=".StatusUpdateProvider"
+            android:authorities="org.justinlloyd.yambaclient.StatusUpdateProvider"
+            android:enabled="true"
+            android:exported="false">
+        </provider>
     </application>
 
 </manifest>
