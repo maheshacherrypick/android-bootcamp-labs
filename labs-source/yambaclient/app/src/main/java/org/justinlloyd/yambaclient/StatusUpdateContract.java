@@ -11,5 +11,6 @@ public class StatusUpdateContract
 	public class DataColumn
 	{
 		public static final String ID = BaseColumns._ID;
+		public static final String USER = "user";
 	}
 }
