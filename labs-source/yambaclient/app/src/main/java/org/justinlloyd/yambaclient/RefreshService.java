@@ -21,7 +21,7 @@ import java.util.List;
  */
 public class RefreshService extends IntentService
 {
-	private final static String TAG = TimelineView.class.getName();
+	private final static String TAG = RefreshService.class.getName();
 
 	// IntentService can perform, e.g. ACTION_FETCH_NEW_ITEMS
 	private static final String ACTION_REFRESH = "org.justinlloyd.yambaclient.action.REFRESH";
