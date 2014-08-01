@@ -103,6 +103,7 @@ public class RefreshService extends IntentService
 				Uri uri = getContentResolver().insert(StatusUpdateContract.CONTENT_URI, values);
 				if (uri != null)
 				{
+					count++;
 					Log.i(TAG, "Status Update: " + statsUpdate.getUser() + " : " + statsUpdate.getCreatedAt() + " - " + statsUpdate.getMessage());
 				}
 
