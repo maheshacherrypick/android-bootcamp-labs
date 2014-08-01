@@ -14,7 +14,7 @@ import android.content.Context;
 public class RefreshService extends IntentService {
     // TODO: Rename actions, choose action names that describe tasks that this
     // IntentService can perform, e.g. ACTION_FETCH_NEW_ITEMS
-    private static final String ACTION_FOO = "org.justinlloyd.yambaclient.action.FOO";
+    private static final String ACTION_REFRESH = "org.justinlloyd.yambaclient.action.FOO";
     private static final String ACTION_BAZ = "org.justinlloyd.yambaclient.action.BAZ";
 
     // TODO: Rename parameters
@@ -22,15 +22,15 @@ public class RefreshService extends IntentService {
     private static final String EXTRA_PARAM2 = "org.justinlloyd.yambaclient.extra.PARAM2";
 
     /**
-     * Starts this service to perform action Foo with the given parameters. If
+     * Starts this service to perform action Refresh with the given parameters. If
      * the service is already performing a task this action will be queued.
      *
      * @see IntentService
      */
     // TODO: Customize helper method
-    public static void startActionFoo(Context context, String param1, String param2) {
+    public static void startActionRefresh(Context context, String param1, String param2) {
         Intent intent = new Intent(context, RefreshService.class);
-        intent.setAction(ACTION_FOO);
+        intent.setAction(ACTION_REFRESH);
         intent.putExtra(EXTRA_PARAM1, param1);
         intent.putExtra(EXTRA_PARAM2, param2);
         context.startService(intent);
@@ -59,10 +59,10 @@ public class RefreshService extends IntentService {
     protected void onHandleIntent(Intent intent) {
         if (intent != null) {
             final String action = intent.getAction();
-            if (ACTION_FOO.equals(action)) {
+            if (ACTION_REFRESH.equals(action)) {
                 final String param1 = intent.getStringExtra(EXTRA_PARAM1);
                 final String param2 = intent.getStringExtra(EXTRA_PARAM2);
-                handleActionFoo(param1, param2);
+                handleActionRefresh(param1, param2);
             } else if (ACTION_BAZ.equals(action)) {
                 final String param1 = intent.getStringExtra(EXTRA_PARAM1);
                 final String param2 = intent.getStringExtra(EXTRA_PARAM2);
@@ -72,11 +72,11 @@ public class RefreshService extends IntentService {
     }
 
     /**
-     * Handle action Foo in the provided background thread with the provided
+     * Handle action Refresh in the provided background thread with the provided
      * parameters.
      */
-    private void handleActionFoo(String param1, String param2) {
-        // TODO: Handle action Foo
+    private void handleActionRefresh(String param1, String param2) {
+        // TODO: Handle action Refresh
         throw new UnsupportedOperationException("Not yet implemented");
     }
 
