@@ -13,5 +13,6 @@ public class StatusUpdateContract
 		public static final String ID = BaseColumns._ID;
 		public static final String USER = "user";
 		public static final String MESSAGE = "message";
+		public static final String CREATED_AT = "created_at";
 	}
 }
