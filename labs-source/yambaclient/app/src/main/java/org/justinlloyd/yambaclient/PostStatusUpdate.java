@@ -2,6 +2,7 @@ package org.justinlloyd.yambaclient;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -63,6 +64,7 @@ public class PostStatusUpdate extends Activity {
         int id = item.getItemId();
         if (id == R.id.action_settings) {
 			Log.d(TAG, "Settings action clicked");
+			startActivity(new Intent(this, SettingsActivity.class));
             return true;
         }
         return super.onOptionsItemSelected(item);
