@@ -14,4 +14,5 @@
     <string name="post_status_update_failed_password_empty">Password is empty.</string>
     <string name="post_status_update_failed_unauthorized">User is not authorized. Possibly incorrect name or password.</string>
     <string name="post_status_update_progress_title">Posting</string>
+    <string name="post_status_update_progress_message">Please wait...</stirng>
 </resources>
