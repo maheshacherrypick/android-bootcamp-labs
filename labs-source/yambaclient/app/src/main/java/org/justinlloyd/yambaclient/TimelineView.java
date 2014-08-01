@@ -2,6 +2,7 @@ package org.justinlloyd.yambaclient;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,6 +22,8 @@ public class TimelineView extends Activity
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_timeline_view);
+		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+		StrictMode.setThreadPolicy(policy);
 	}
 
 
