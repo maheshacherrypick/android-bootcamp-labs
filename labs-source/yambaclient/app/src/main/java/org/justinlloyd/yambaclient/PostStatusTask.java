@@ -87,11 +87,11 @@ public class PostStatusTask extends AsyncTask<String, Void, Long> {
             } else if (result == POST_FAILED) {
                 Toast.makeText(context, context.getResources().getString(R.string.post_status_update_failed), Toast.LENGTH_SHORT).show();
             } else if (result == POST_FAILED_USERNAME_EMPTY) {
-                Toast.makeText(context, context.getResources().getString(R.string.post_status_update_username_empty), Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, context.getResources().getString(R.string.post_status_update_failed_username_empty), Toast.LENGTH_SHORT).show();
             } else if (result == POST_FAILED_PASSWORD_EMPTY) {
-                Toast.makeText(context, context.getResources().getString(R.string.post_status_update_password_empty), Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, context.getResources().getString(R.string.post_status_update_failed_password_empty), Toast.LENGTH_SHORT).show();
             } else if (result == POST_FAILED_UNAUTHORIZED) {
-				Toast.makeText(context, context.getResources().getString(R.string.post_status_update_unauthorized), Toast.LENGTH_SHORT).show();
+				Toast.makeText(context, context.getResources().getString(R.string.post_status_update_failed_unauthorized), Toast.LENGTH_SHORT).show();
 			}
         }
     }
