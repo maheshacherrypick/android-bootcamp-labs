@@ -64,6 +64,7 @@ public class StatusUpdateProvider extends ContentProvider
 	@Override
 	public boolean onCreate()
 	{
+		dbHelper = new DBHelper(getContext());
 		return false;
 	}
 
