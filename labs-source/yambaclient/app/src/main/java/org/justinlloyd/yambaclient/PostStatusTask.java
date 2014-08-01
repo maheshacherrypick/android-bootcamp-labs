@@ -82,7 +82,8 @@ public class PostStatusTask extends AsyncTask<String, Void, Long> {
         if (context != null && result != null) {
             Log.d(TAG, String.format("Post message async task completed with result code: %d", result));
             if (result == POST_SUCCESS) {
-                Toast.makeText(context, "Successfully posted your status update.", Toast.LENGTH_SHORT).show();
+
+                Toast.makeText(context, context.getResources().getString(R.string.post_status_update_success), Toast.LENGTH_SHORT).show();
             } else if (result == POST_FAILED) {
                 Toast.makeText(context, "Failed to post to the remote server.", Toast.LENGTH_SHORT).show();
             } else if (result == POST_FAILED_USERNAME_EMPTY) {
