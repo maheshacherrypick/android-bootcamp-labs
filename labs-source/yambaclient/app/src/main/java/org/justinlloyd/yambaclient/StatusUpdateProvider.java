@@ -110,8 +110,10 @@ public class StatusUpdateProvider extends ContentProvider
 		qb.setTables(StatusUpdateContract.TABLE_NAME);
 		switch (sURIMatcher.match(uri))
 		{
+			case StatusUpdateContract.STATUS_UPDATE_DIR:
+				break;
 		}
-		
+
 	}
 
 	@Override
