@@ -29,6 +29,7 @@ public class BootReceiver extends BroadcastReceiver
 
 		if (refreshInterval == 0)
 		{
+			Log.d(TAG, "Refresh interval is set to 0 - cancelling the repeating alarm");
 			return;
 		}
 
