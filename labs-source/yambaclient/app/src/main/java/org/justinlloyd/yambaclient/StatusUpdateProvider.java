@@ -119,6 +119,7 @@ public class StatusUpdateProvider extends ContentProvider
 				throw new IllegalArgumentException("Illegal uri: " + uri);
 		}
 
+		String orderBy = (TextUtils.isEmpty(sortOrder)) ? StatusUpdateContract.DEFAULT_SORT : sortOrder;
 	}
 
 	@Override
