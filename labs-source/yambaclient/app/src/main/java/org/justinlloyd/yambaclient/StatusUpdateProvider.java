@@ -120,6 +120,7 @@ public class StatusUpdateProvider extends ContentProvider
 		}
 
 		String orderBy = (TextUtils.isEmpty(sortOrder)) ? StatusUpdateContract.DEFAULT_SORT : sortOrder;
+		SQLiteDatabase db = dbHelper.getReadableDatabase();
 	}
 
 	@Override
