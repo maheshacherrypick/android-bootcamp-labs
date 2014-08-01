@@ -48,12 +48,6 @@ public class TimelineView extends Activity
 			startActivity(new Intent(this, SettingsActivity.class));
 			return true;
 		}
-		else if (id == R.id.action_refresh)
-		{
-			Log.d(TAG, "Refresh action was clicked");
-			refreshTimeline();
-			return true;
-		}
 
 		return super.onOptionsItemSelected(item);
 	}
