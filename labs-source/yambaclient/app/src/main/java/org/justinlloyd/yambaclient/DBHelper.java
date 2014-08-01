@@ -9,7 +9,7 @@ public class DBHelper extends SQLiteOpenHelper
 {
 	private static final String TAG = DBHelper.class.getName();
 
-	public DBHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version)
+	public DBHelper(Context context)
 	{
 		super(context, "timeline.db", null, 1);
 	}
