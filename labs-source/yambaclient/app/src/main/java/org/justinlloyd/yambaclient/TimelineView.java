@@ -48,6 +48,7 @@ public class TimelineView extends Activity
 
 	public void onActionSettings(MenuItem item)
 	{
+		Log.d(TAG, "Settings action was clicked");
 		startActivity(new Intent(this, SettingsActivity.class));
 	}
 
