@@ -14,7 +14,7 @@ import android.content.Context;
 public class RefreshService extends IntentService {
     // TODO: Rename actions, choose action names that describe tasks that this
     // IntentService can perform, e.g. ACTION_FETCH_NEW_ITEMS
-    private static final String ACTION_REFRESH = "org.justinlloyd.yambaclient.action.FOO";
+    private static final String ACTION_REFRESH = "org.justinlloyd.yambaclient.action.REFRESH";
 
     // TODO: Rename parameters
     private static final String EXTRA_PARAM1 = "org.justinlloyd.yambaclient.extra.PARAM1";
