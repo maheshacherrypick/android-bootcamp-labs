@@ -6,6 +6,8 @@ import android.content.Intent;
 
 public class BootReceiver extends BroadcastReceiver
 {
+	private static final String TAG = BootReceiver.class.getName();
+
 	public BootReceiver()
 	{
 	}
