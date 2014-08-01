@@ -114,6 +114,8 @@ public class StatusUpdateProvider extends ContentProvider
 				break;
 			case StatusUpdateContract.STATUS_UPDATE_ITEM:
 				break;
+			default:
+				throw new IllegalArgumentException("Illegal uri: " + uri);
 		}
 
 	}
