@@ -52,6 +52,11 @@ public class TimelineView extends Activity
 		return super.onOptionsItemSelected(item);
 	}
 
+	public void onActionSettings(MenuItem item)
+	{
+
+	}
+	
 	public void onActionRefresh(MenuItem item)
 	{
 		Log.d(TAG, "Refresh action was clicked");
