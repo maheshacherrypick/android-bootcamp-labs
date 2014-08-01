@@ -52,6 +52,7 @@ public class RefreshService extends IntentService
 	{
 		if (intent == null)
 		{
+			Log.e(TAG, "Passed a null intent.");
 			return;
 		}
 
