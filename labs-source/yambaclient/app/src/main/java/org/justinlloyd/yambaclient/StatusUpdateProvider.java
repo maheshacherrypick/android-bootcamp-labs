@@ -64,7 +64,6 @@ public class StatusUpdateProvider extends ContentProvider
 	@Override
 	public boolean onCreate()
 	{
-		// TODO: Implement this to initialize your content provider on startup.
 		return false;
 	}
 
