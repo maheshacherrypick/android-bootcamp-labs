@@ -10,4 +10,5 @@
     <string name="title_activity_settings">Settings</string>
     <string name="post_status_update_success">Successfully posted your status update.</string>
     <string name="post_status_update_failed">Failed to post to the remote server.</string>
+    <string name="post_status_update_username_empty">Username is empty.</string>
 </resources>
