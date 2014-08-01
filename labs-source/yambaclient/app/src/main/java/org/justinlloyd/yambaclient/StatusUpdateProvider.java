@@ -60,6 +60,10 @@ public class StatusUpdateProvider extends ContentProvider
 
 		SQLiteDatabase db = dbHelper.getWritableDatabase();
 		long rowId = db.insertWithOnConflict(StatusUpdateContract.TABLE_NAME, null, values, SQLiteDatabase.CONFLICT_IGNORE);
+		if (rowId != -1)
+		{
+		}
+		
 		throw new UnsupportedOperationException("Not yet implemented");
 	}
 
