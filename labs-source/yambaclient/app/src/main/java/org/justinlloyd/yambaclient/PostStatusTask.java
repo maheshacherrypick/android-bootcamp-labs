@@ -91,7 +91,7 @@ public class PostStatusTask extends AsyncTask<String, Void, Long> {
             } else if (result == POST_FAILED_PASSWORD_EMPTY) {
                 Toast.makeText(context, context.getResources().getString(R.string.post_status_update_password_empty), Toast.LENGTH_SHORT).show();
             } else if (result == POST_FAILED_UNAUTHORIZED) {
-				Toast.makeText(context, "User is not authorized. Possibly incorrect name or password.", Toast.LENGTH_SHORT).show();
+				Toast.makeText(context, context.getResources().getString(R.string.post_status_update_unauthorized), Toast.LENGTH_SHORT).show();
 			}
         }
     }
