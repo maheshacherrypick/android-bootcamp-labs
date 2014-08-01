@@ -7,6 +7,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.marakana.android.yamba.clientlib.YambaClient;
+
 public class TimelineView extends Activity
 {
 	private final static String TAG = TimelineView.class.getName();
@@ -44,5 +46,6 @@ public class TimelineView extends Activity
 	public void buttonRefreshTimeline(View v)
 	{
 		Log.d(TAG, "Refresh timeline button clicked");
+		YambaClient yambaClient = new YambaClient("student","password");
 	}
 }
