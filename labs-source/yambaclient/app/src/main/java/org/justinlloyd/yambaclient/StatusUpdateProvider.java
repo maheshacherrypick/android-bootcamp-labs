@@ -112,6 +112,8 @@ public class StatusUpdateProvider extends ContentProvider
 		{
 			case StatusUpdateContract.STATUS_UPDATE_DIR:
 				break;
+			case StatusUpdateContract.STATUS_UPDATE_ITEM:
+				break;
 		}
 
 	}
