@@ -89,7 +89,9 @@ public class PostStatusTask extends AsyncTask<String, Void, Long> {
                 Toast.makeText(context, "Username is empty.", Toast.LENGTH_SHORT).show();
             } else if (result == POST_FAILED_PASSWORD_EMPTY) {
                 Toast.makeText(context, "Password is empty.", Toast.LENGTH_SHORT).show();
-            }
+            } else if (result == POST_FAILED_UNAUTHORIZED) {
+				Toast.makeText(context, "User is not authorized. Possibly incorrect name or password.", Toast.LENGTH_SHORT).show();
+			}
         }
     }
 }
