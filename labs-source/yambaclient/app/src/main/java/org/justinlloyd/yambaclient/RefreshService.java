@@ -100,7 +100,10 @@ public class RefreshService extends IntentService
 				values.put(StatusUpdateContract.DataColumn.MESSAGE, statsUpdate.getMessage());
 				values.put(StatusUpdateContract.DataColumn.CREATED_AT, statsUpdate.getCreatedAt().getTime());
 				Uri uri = getContentResolver().insert(StatusUpdateContract.CONTENT_URI, values);
-
+				if (uri != null)
+				{
+				}
+				
 				Log.i(TAG, "Status Update: " + statsUpdate.getUser() + " : " + statsUpdate.getCreatedAt() + " - " + statsUpdate.getMessage());
 			}
 
