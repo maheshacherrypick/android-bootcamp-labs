@@ -1,5 +1,6 @@
 package org.justinlloyd.yambaclient;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
@@ -27,6 +28,6 @@ public class SettingsActivity extends PreferenceActivity implements OnSharedPref
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        // TODO broadcast an intent to anybody that needs to know about updated shared preferences
-    }
+		sendBroadcast(new Intent("org.justinlloyd.yambaclient.action.UPDATED_INTERVAL"));
+	}
 }
