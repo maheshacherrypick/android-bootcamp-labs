@@ -7,6 +7,7 @@ import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
+import android.text.TextUtils;
 import android.util.Log;
 
 public class StatusUpdateProvider extends ContentProvider
@@ -30,8 +31,33 @@ public class StatusUpdateProvider extends ContentProvider
 	@Override
 	public int delete(Uri uri, String selection, String[] selectionArgs)
 	{
-		// Implement this to handle requests to delete one or more rows.
-		throw new UnsupportedOperationException("Not yet implemented");
+		String where;
+		switch (sURIMatcher.match(uri))
+		{
+			case StatusUpdateContract.STATUS_UPDATE_DIR:
+				where = (selection == null) ? "1" : selection;
+				break;
+			case StatusUpdateContract.STATUS_UPDATE_ITEM:
+				long id = ContentUris.parseId(uri);
+				where = StatusUpdateContract.DataColumn.ID
+						+ "="
+						+ id
+						+ (TextUtils.isEmpty(selection) ? "" : " and ( "
+						+ selection + " )");
+				break;
+			default:
+				throw new IllegalArgumentException("Illegal uri: " + uri);
+		}
+
+		SQLiteDatabase db = dbHelper.getWritableDatabase();
+		int ret = db.delete(StatusUpdateContract.TABLE_NAME, where, selectionArgs);
+		if (ret > 0)
+		{
+			getContext().getContentResolver().notifyChange(uri, null);
+		}
+
+		Log.d(TAG, "Deleted records: " + ret);
+		return ret;
 	}
 
 	@Override
