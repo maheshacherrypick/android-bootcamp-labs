@@ -7,5 +7,6 @@
     <string name="time_to_post">Posted the status message in %1$d ms!</string>
     <string name="title_activity_timeline_view">TimelineView</string>
     <string name="title_activity_post_status_update">Post Status Update</string>
+    <string name="title_activity_settings">Settings</string>
 
 </resources>
