@@ -75,6 +75,7 @@ public class TimelineView extends Activity
 		Cursor cursor = getContentResolver().query(StatusUpdateContract.CONTENT_URI, null, null, null, null);
 		while (cursor.moveToNext())
 		{
+			StringBuilder builder = new StringBuilder();
 		}
 	}
 }
