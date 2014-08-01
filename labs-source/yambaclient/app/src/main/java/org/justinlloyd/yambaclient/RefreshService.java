@@ -3,6 +3,16 @@ package org.justinlloyd.yambaclient;
 import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+import android.util.Log;
+import android.widget.Toast;
+
+import com.marakana.android.yamba.clientlib.YambaClient;
+import com.marakana.android.yamba.clientlib.YambaClientException;
+import com.marakana.android.yamba.clientlib.YambaClientUnauthorizedException;
+
+import java.util.List;
 
 /**
  * An {@link IntentService} subclass for handling asynchronous task requests in
@@ -10,6 +20,8 @@ import android.content.Intent;
  */
 public class RefreshService extends IntentService
 {
+	private final static String TAG = TimelineView.class.getName();
+
 	// IntentService can perform, e.g. ACTION_FETCH_NEW_ITEMS
 	private static final String ACTION_REFRESH = "org.justinlloyd.yambaclient.action.REFRESH";
 
@@ -54,8 +66,38 @@ public class RefreshService extends IntentService
 	 */
 	private void handleActionRefresh(String param1)
 	{
-		// TODO: Handle action Refresh
-		throw new UnsupportedOperationException("Not yet implemented");
-	}
+		Log.d(TAG, "Refresh timeline button clicked");
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+		final String username = prefs.getString("username", "");
+		final String password = prefs.getString("password", "");
+		if (username.isEmpty() || password.isEmpty())
+		{
+			Log.d(TAG, "Cannot refresh time line, no username or password set in preferences.");
+			Toast.makeText(this, "Cannot refresh time line, no username or password set in preferences.", Toast.LENGTH_SHORT).show();
+			return;
+		}
+
+		YambaClient yambaClient = new YambaClient(username, password);
+		try
+		{
+			List<YambaClient.Status> statusUpdates = yambaClient.getTimeline(100);
+			for (YambaClient.Status statsUpdate : statusUpdates)
+			{
+				Log.i(TAG, "Status Update: " + statsUpdate.getUser() + " : " + statsUpdate.getCreatedAt() + " - " + statsUpdate.getMessage());
+			}
+
+		}
+
+		catch (YambaClientUnauthorizedException e)
+		{
+			Log.e(TAG, "User is not authorized. Possibly incorrect name or password.");
+			Toast.makeText(this, "User is not authorized. Possibly incorrect name or password.", Toast.LENGTH_SHORT).show();
+		}
+
+		catch (YambaClientException e)
+		{
+			Log.e(TAG, "Talking to the Yamba sever threw an exception");
+			Log.e(TAG, e.toString());
+		}	}
 
 }
