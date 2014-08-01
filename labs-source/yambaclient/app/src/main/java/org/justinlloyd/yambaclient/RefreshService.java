@@ -72,6 +72,10 @@ public class RefreshService extends IntentService
 
 			handleActionRefresh(itemsToRetrieve);
 		}
+		else
+		{
+		}
+
 	}
 
 	/**
