@@ -50,6 +50,12 @@ public class StatusUpdateProvider extends ContentProvider
 	@Override
 	public Uri insert(Uri uri, ContentValues values)
 	{
+		if (sURIMatcher.match(uri) != StatusUpdateContract.STATUS_UPDATE_DIR)
+		{
+			throw new IllegalArgumentException("Illegal uri: " + uri + " insert cannot handle multiple items");
+		}
+
+		throw new UnsupportedOperationException("Not yet implemented");
 	}
 
 	@Override
