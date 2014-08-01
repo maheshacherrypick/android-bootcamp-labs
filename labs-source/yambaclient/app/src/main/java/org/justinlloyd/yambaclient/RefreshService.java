@@ -93,6 +93,7 @@ public class RefreshService extends IntentService
 			List<YambaClient.Status> statusUpdates = yambaClient.getTimeline(itemsToRetrieve);
 			for (YambaClient.Status statsUpdate : statusUpdates)
 			{
+				values.clear();
 				Log.i(TAG, "Status Update: " + statsUpdate.getUser() + " : " + statsUpdate.getCreatedAt() + " - " + statsUpdate.getMessage());
 			}
 
