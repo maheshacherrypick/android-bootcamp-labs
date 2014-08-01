@@ -8,6 +8,9 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.marakana.android.yamba.clientlib.YambaClient;
+import com.marakana.android.yamba.clientlib.YambaClientException;
+
+import java.util.List;
 
 public class TimelineView extends Activity
 {
@@ -47,5 +50,13 @@ public class TimelineView extends Activity
 	{
 		Log.d(TAG, "Refresh timeline button clicked");
 		YambaClient yambaClient = new YambaClient("student","password");
+		try
+		{
+			List<YambaClient.Status> statusUpdates = yambaClient.getTimeline(100);
+		}
+		catch (YambaClientException e)
+		{
+			e.printStackTrace();
+		}
 	}
 }
