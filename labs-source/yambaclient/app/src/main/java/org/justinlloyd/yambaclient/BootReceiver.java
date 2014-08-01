@@ -21,6 +21,8 @@ public class BootReceiver extends BroadcastReceiver
 	@Override
 	public void onReceive(Context context, Intent intent)
 	{
+		Log.d(TAG, "Executing onReceive handler");
+
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
 		long refreshInterval = Long.parseLong(prefs.getString("refresh_interval", Long.toString(DEFAULT_REFRESH_INTERVAL)));
 
