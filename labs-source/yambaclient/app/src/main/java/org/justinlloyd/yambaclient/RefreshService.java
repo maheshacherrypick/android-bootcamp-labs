@@ -54,7 +54,7 @@ public class RefreshService extends IntentService
 			final String action = intent.getAction();
 			if (ACTION_REFRESH.equals(action))
 			{
-				final String itemsToRetrieve = intent.getStringExtra(EXTRA_ITEMS_TO_RETRIEVE);
+				final int itemsToRetrieve = Integer.parseInt(intent.getStringExtra(EXTRA_ITEMS_TO_RETRIEVE));
 				handleActionRefresh(itemsToRetrieve);
 			}
 		}
@@ -64,7 +64,7 @@ public class RefreshService extends IntentService
 	 * Handle action Refresh in the provided background thread with the provided
 	 * parameters.
 	 */
-	private void handleActionRefresh(String itemsToRetrieve)
+	private void handleActionRefresh(int itemsToRetrieve)
 	{
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		final String username = prefs.getString("username", "");
