@@ -20,7 +20,7 @@ public class DBHelper extends SQLiteOpenHelper
 	public void onCreate(SQLiteDatabase db)
 	{
 		Log.d(TAG, "Creating new database for Status Updates...");
-		String sql = "create table status ("+ BaseColumns._ID + " int primary key, user text, message text, created_at int)";
+		String sql = "create table " + StatusUpdateContract.TABLE_NAME + " (" + BaseColumns._ID + " int primary key, user text, message text, created_at int)";
 		db.execSQL(sql);
 		Log.d(TAG, "Created database using the following SQL: " + sql);
 	}
@@ -29,7 +29,7 @@ public class DBHelper extends SQLiteOpenHelper
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
 	{
 		Log.d(TAG, "Upgrading database from version " + oldVersion + " to version " + newVersion + ".");
-		db.execSQL("drop table if exists status");
+		db.execSQL("drop table if exists " + StatusUpdateContract.TABLE_NAME);
 		onCreate(db);
 	}
 }
