@@ -111,8 +111,9 @@ public class RefreshService extends IntentService
 
 			if (count > 0)
 			{
+				sendBroadcast(new Intent("org.justinlloyd.yambaclient.action.NEW_STATUSES").putExtra("count", count));
 			}
-			
+
 		}
 
 		catch (YambaClientUnauthorizedException e)
