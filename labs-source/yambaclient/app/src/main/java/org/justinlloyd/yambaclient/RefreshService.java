@@ -94,6 +94,7 @@ public class RefreshService extends IntentService
 			for (YambaClient.Status statsUpdate : statusUpdates)
 			{
 				values.clear();
+				values.put(StatusUpdateContract.DataColumn.ID, statsUpdate.getId());
 				Log.i(TAG, "Status Update: " + statsUpdate.getUser() + " : " + statsUpdate.getCreatedAt() + " - " + statsUpdate.getMessage());
 			}
 
