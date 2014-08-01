@@ -59,16 +59,17 @@ public class StatusUpdateProvider extends ContentProvider
 			throw new IllegalArgumentException("Illegal uri: " + uri + " insert cannot handle multiple items");
 		}
 
+		Uri ret = null;
 		SQLiteDatabase db = dbHelper.getWritableDatabase();
 		long rowId = db.insertWithOnConflict(StatusUpdateContract.TABLE_NAME, null, values, SQLiteDatabase.CONFLICT_IGNORE);
 		if (rowId != -1)
 		{
 			long id = values.getAsLong(StatusUpdateContract.DataColumn.ID);
-			Uri ret = ContentUris.withAppendedId(uri, id);
+			ret = ContentUris.withAppendedId(uri, id);
 			getContext().getContentResolver().notifyChange(uri, null);
 		}
 
-		throw new UnsupportedOperationException("Not yet implemented");
+		return ret;
 	}
 
 	@Override
