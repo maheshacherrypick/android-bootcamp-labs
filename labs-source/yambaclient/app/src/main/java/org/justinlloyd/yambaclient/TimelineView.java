@@ -60,9 +60,10 @@ public class TimelineView extends Activity
 
 	public void onActionRefresh(MenuItem item)
 	{
-
+		Log.d(TAG, "Refresh action was clicked");
+		refreshTimeline();
 	}
-	
+
 	public void onActionPostStatusUpdate(MenuItem item)
 	{
 		Log.d(TAG, "Post Status Update action was clicked");
