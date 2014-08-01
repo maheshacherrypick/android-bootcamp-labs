@@ -28,6 +28,9 @@ public class StatusUpdateProvider extends ContentProvider {
 
     @Override
     public String getType(Uri uri) {
+		switch (sURIMatcher.match(uri))
+		{
+		}
     }
 
     @Override
