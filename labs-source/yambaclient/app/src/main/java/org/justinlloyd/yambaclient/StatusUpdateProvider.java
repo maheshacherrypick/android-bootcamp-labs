@@ -5,6 +5,7 @@ import android.content.ContentValues;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.net.Uri;
+import android.util.Log;
 
 public class StatusUpdateProvider extends ContentProvider {
 	private static final String TAG = StatusUpdateProvider.class.getName();
@@ -35,6 +36,7 @@ public class StatusUpdateProvider extends ContentProvider {
 			case StatusUpdateContract.STATUS_UPDATE_ITEM:
 				throw new UnsupportedOperationException("Not yet implemented");
 			default:
+				Log.e(TAG, "Illegal URI supplied: " + uri);
 				throw new IllegalArgumentException("Illegal URI supplied: " + uri);
 		}
     }
