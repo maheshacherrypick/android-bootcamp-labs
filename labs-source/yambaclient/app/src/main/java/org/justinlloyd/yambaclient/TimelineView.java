@@ -64,6 +64,10 @@ public class TimelineView extends Activity
 		return super.onOptionsItemSelected(item);
 	}
 
+	public void onActionPostStatusUpdate(MenuItem item)
+	{
+	}
+
 	public void buttonRefreshTimeline(View v)
 	{
 		refreshTimeline();
