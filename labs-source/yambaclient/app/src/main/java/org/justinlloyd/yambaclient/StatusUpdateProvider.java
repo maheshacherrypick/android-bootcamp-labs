@@ -2,11 +2,14 @@ package org.justinlloyd.yambaclient;
 
 import android.content.ContentProvider;
 import android.content.ContentValues;
+import android.content.UriMatcher;
 import android.database.Cursor;
 import android.net.Uri;
 
 public class StatusUpdateProvider extends ContentProvider {
 	private static final String TAG = StatusUpdateProvider.class.getName();
+
+	private static final UriMatcher sURIMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 
     public StatusUpdateProvider() {
     }
