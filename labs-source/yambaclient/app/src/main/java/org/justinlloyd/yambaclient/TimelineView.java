@@ -72,5 +72,6 @@ public class TimelineView extends Activity
 
 	public void buttonDumpDatabase(View v)
 	{
+		Cursor cursor = getContentResolver().query(StatusUpdateContract.CONTENT_URI, null, null, null, null);
 	}
 }
