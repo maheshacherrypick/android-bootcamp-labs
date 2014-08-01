@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import com.marakana.android.yamba.clientlib.YambaClient;
 import com.marakana.android.yamba.clientlib.YambaClientException;
+import com.marakana.android.yamba.clientlib.YambaClientUnauthorizedException;
 
 public class PostStatusTask extends AsyncTask<String, Void, Long> {
 
@@ -16,6 +17,7 @@ public class PostStatusTask extends AsyncTask<String, Void, Long> {
     public static final long POST_FAILED = -1L;
     public static final long POST_FAILED_USERNAME_EMPTY = -2L;
     public static final long POST_FAILED_PASSWORD_EMPTY = -3L;
+	public static final long POST_FAILED_UNAUTHORIZED = -4L;
     private static final String TAG = PostStatusTask.class.getName();
     private final Activity context;
     private ProgressDialog progress;
@@ -57,7 +59,15 @@ public class PostStatusTask extends AsyncTask<String, Void, Long> {
             final long totalTime = endTime - startTime;
             Log.d(TAG, String.format("Posted the status message in %d ms", totalTime));
             return POST_SUCCESS;
-        } catch (YambaClientException e) {
+        }
+
+		catch (YambaClientUnauthorizedException e)
+		{
+			Log.e(TAG, "User is not authorized. Possibly incorrect name or password.");
+			return POST_FAILED_UNAUTHORIZED;
+		}
+
+		catch (YambaClientException e) {
             Log.d(TAG, e.toString());
             return POST_FAILED;
         }
