@@ -1,12 +1,11 @@
 apply plugin: 'android'
-
 android {
-    compileSdkVersion 16
+    compileSdkVersion 19
     buildToolsVersion '20.0.0'
     defaultConfig {
         applicationId 'com.thenewcircle.yamba'
-        minSdkVersion 16
-        targetSdkVersion 16
+        minSdkVersion 1
+        targetSdkVersion 19
         versionCode 1
         versionName '1.0'
     }
@@ -22,3 +21,6 @@ android {
     }
 }
 
+dependencies {
+    compile project(':yamba-client')
+}

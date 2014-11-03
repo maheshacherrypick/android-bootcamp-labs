@@ -74,10 +74,10 @@ public class StatusActivity extends Activity {
 
             @Override
             public void onClick(View v) {
-                Log.d("StatusActivity","Post tweet");
+                Log.d(TAG,"Post tweet");
                 String tweet = mTextStatus.getText().toString();
                 String result = postTweet(tweet);
-                Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
+                Toast.makeText(StatusActivity.this, result, Toast.LENGTH_SHORT).show();
             }
 
         });

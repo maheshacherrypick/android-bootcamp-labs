@@ -37,5 +37,7 @@ public class BootReceiver extends BroadcastReceiver {
             Log.d(TAG, "setting repeat operation for: " + interval);
         }
         Log.d(TAG, "onReceived");
+
+        alarmManager.cancel(operation);
     }
 }

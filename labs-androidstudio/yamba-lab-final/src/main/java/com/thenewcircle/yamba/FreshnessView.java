@@ -16,7 +16,7 @@ public class FreshnessView extends View {
 		super(context, attrs);
 
 		paint = new Paint();
-		paint.setARGB(255, 0, 255, 0);
+		paint.setARGB(255, 255, 0, 0);
 		paint.setStyle(Style.FILL_AND_STROKE);
 		paint.setStrokeWidth(LINE_HEIGHT);
 

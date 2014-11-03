@@ -1,6 +1,8 @@
 package com.thenewcircle.yamba;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -11,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.marakana.android.yamba.clientlib.YambaClient;
 import com.marakana.android.yamba.clientlib.YambaClientException;
@@ -24,6 +27,8 @@ public class StatusActivity extends Activity {
     private TextView mTextCount;
     private int mDefaultColor;
     private AsyncTask task;
+
+    private int mCount = 0;
 
     public void whenUserClicksButton(View view) {
         Log.d("StatusActivity", "User pressed button");
@@ -44,6 +49,7 @@ public class StatusActivity extends Activity {
 
             @Override
             public void afterTextChanged(Editable s) {
+                mCount++;
                 int count = 140 - s.length();
                 mTextCount.setText(Integer.toString(count));
 
@@ -89,6 +95,16 @@ public class StatusActivity extends Activity {
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
     }
@@ -99,8 +115,13 @@ public class StatusActivity extends Activity {
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
     }
 
     @Override
@@ -115,15 +136,24 @@ public class StatusActivity extends Activity {
 
     public void postTweet(String tweet) {
 
-        new PostTweetTask().execute(tweet);
+        task = new PostTweetTask().execute(tweet);
+        Log.d(TAG, "completed postTweet method");
     }
 
     private class PostTweetTask extends AsyncTask<String, Void, String> {
+
+        ProgressDialog dialog;
 
         @Override
         protected String doInBackground(String... tweet) {
 
             YambaClient yambaClient = new YambaClient("student", "password");
+
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
 
             try {
                 yambaClient.postStatus(tweet[0]);
@@ -137,15 +167,17 @@ public class StatusActivity extends Activity {
 
         @Override
         protected void onPreExecute() {
-
+            dialog = new ProgressDialog(StatusActivity.this);
+            dialog.setMessage("Posting status...");
+            dialog.show();
         }
 
         @Override
         protected void onPostExecute(String result) {
-//            dialog.dismiss();
-//            Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
-//            mButtonTweet.setVisibility(View.VISIBLE);
-//            task = null;
+            dialog.dismiss();
+            Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
+            mButtonTweet.setVisibility(View.VISIBLE);
+            task = null;
         }
 
     }

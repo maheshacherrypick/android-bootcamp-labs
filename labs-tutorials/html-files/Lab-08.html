@@ -866,6 +866,134 @@ How does Android UI pre-populate the preferences activity from the XML?  Please 
 </ol></div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_detailed_steps">Detailed Steps</h2>
+<div class="sectionbody">
+<div class="olist arabic"><ol class="arabic" start="1">
+<li>
+<p>
+Create a preference XML file in "res/xml/prefs.xml"
+</p>
+</li>
+</ol></div>
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="nt">&lt;PreferenceScreen</span> <span class="na">xmlns:android=</span><span class="s">&quot;http://schemas.android.com/apk/res/android&quot;</span><span class="nt">&gt;</span>
+
+        <span class="nt">&lt;EditTextPreference</span>
+            <span class="na">android:key=</span><span class="s">&quot;@string/prefsUsernameKey&quot;</span>
+            <span class="na">android:title=</span><span class="s">&quot;@string/prefsUsernameTitle&quot;</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;EditTextPreference</span>
+            <span class="na">android:key=</span><span class="s">&quot;@string/prefsPasswordKey&quot;</span>
+            <span class="na">android:password=</span><span class="s">&quot;true&quot;</span>
+            <span class="na">android:title=</span><span class="s">&quot;@string/prefsPasswordTitle&quot;</span> <span class="nt">/&gt;</span>
+
+<span class="nt">&lt;/PreferenceScreen&gt;</span>
+</pre></div></div></div>
+<div class="olist arabic"><ol class="arabic" start="2">
+<li>
+<p>
+Create a preference activity called <span class="monospaced">SettingsActivity</span>
+</p>
+</li>
+</ol></div>
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">SettingsActivity</span> <span class="kd">extends</span> <span class="n">PreferenceActivity</span> <span class="o">{</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">(</span><span class="n">savedInstanceState</span><span class="o">);</span>
+
+        <span class="c1">// Load the preferences from an XML resource</span>
+        <span class="n">addPreferencesFromResource</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">xml</span><span class="o">.</span><span class="na">prefs</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div></div></div>
+<div class="olist arabic"><ol class="arabic" start="3">
+<li>
+<p>
+Add <span class="monospaced">SettingsActivity</span> to Android Manifest
+</p>
+</li>
+</ol></div>
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span class="nt">&lt;activity</span>
+    <span class="na">android:name=</span><span class="s">&quot;.SettingsActivity&quot;</span>
+    <span class="na">android:label=</span><span class="s">&quot;Settings&quot;</span> <span class="nt">&gt;</span>
+<span class="nt">&lt;/activity&gt;</span>
+</pre></div></div></div>
+<div class="olist arabic"><ol class="arabic" start="4">
+<li>
+<p>
+Read preference values from preferences framework
+</p>
+</li>
+</ol></div>
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre> <span class="n">SharedPreferences</span> <span class="n">prefs</span> <span class="o">=</span> <span class="n">PreferenceManager</span><span class="o">.</span><span class="na">getDefaultSharedPreferences</span><span class="o">(</span><span class="n">StatusActivity</span><span class="o">.</span><span class="na">this</span><span class="o">);</span>
+
+ <span class="n">String</span> <span class="n">username</span> <span class="o">=</span> <span class="n">prefs</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="s">&quot;username&quot;</span><span class="o">,</span> <span class="s">&quot;student&quot;</span><span class="o">);</span>
+ <span class="n">String</span> <span class="n">password</span> <span class="o">=</span> <span class="n">prefs</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="s">&quot;password&quot;</span><span class="o">,</span> <span class="s">&quot;password&quot;</span><span class="o">);</span>
+</pre></div></div></div>
+<div class="olist arabic"><ol class="arabic" start="5">
+<li>
+<p>
+Implement preference change listener in <span class="monospaced">StatusActivity</span>
+</p>
+</li>
+</ol></div>
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">StatusActivity</span>
+    <span class="kd">extends</span> <span class="n">Activity</span>
+    <span class="kd">implements</span> <span class="n">SharedPreferences</span><span class="o">.</span><span class="na">OnSharedPreferenceChangeListener</span> <span class="o">{</span>
+</pre></div></div></div>
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span class="kd">public</span> <span class="kt">void</span> <span class="nf">onSharedPreferenceChanged</span><span class="o">(</span><span class="n">SharedPreferences</span> <span class="n">sharedPreferences</span><span class="o">,</span> <span class="n">String</span> <span class="n">key</span><span class="o">)</span> <span class="o">{</span> <span class="c1">// 4</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">key</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">KEY_USERNAME</span><span class="o">))</span> <span class="o">{</span>
+        <span class="n">String</span> <span class="n">newUsername</span> <span class="o">=</span>
+        <span class="n">sharedPreferences</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="n">key</span><span class="o">,</span> <span class="s">&quot;&quot;</span><span class="o">);</span>
+      <span class="o">}</span>
+<span class="o">}</span>
+</pre></div></div></div>
+<div class="olist arabic"><ol class="arabic" start="7">
+<li>
+<p>
+Register preferences change listener in <span class="monospaced">StatusActivity</span>
+</p>
+</li>
+</ol></div>
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span class="nd">@Override</span>
+<span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onResume</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">super</span><span class="o">.</span><span class="na">onResume</span><span class="o">();</span>
+    <span class="n">PreferenceManager</span><span class="o">.</span><span class="na">getDefaultSharedPreferences</span><span class="o">(</span><span class="k">this</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">unregisterOnSharedPreferenceChangeListener</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+<span class="o">}</span>
+
+<span class="nd">@Override</span>
+<span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onPause</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">super</span><span class="o">.</span><span class="na">onPause</span><span class="o">();</span>
+    <span class="n">PreferenceManager</span><span class="o">.</span><span class="na">getDefaultSharedPreferences</span><span class="o">(</span><span class="k">this</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">registerOnSharedPreferenceChangeListener</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+<span class="o">}</span>
+</pre></div></div></div>
+<div class="olist arabic"><ol class="arabic" start="8">
+<li>
+<p>
+Register for Yamba account
+</p>
+<div class="literalblock">
+<div class="content monospaced">
+<pre>Login as "student/password"</pre>
+</div></div>
+<div class="literalblock">
+<div class="content monospaced">
+<pre>Invite yourself.</pre>
+</div></div>
+</li>
+</ol></div>
+</div>
+</div>
 </div>
 <div id="footnotes"><hr></div>
 <div id="footer">

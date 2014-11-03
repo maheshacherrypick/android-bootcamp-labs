@@ -3,6 +3,7 @@ package com.thenewcircle.yamba;
 import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -78,8 +79,8 @@ public class StatusActivity extends Activity {
 
         });
 
-        //StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        //StrictMode.setThreadPolicy(policy);
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
 
         Log.d(TAG, "onCreated");
     }
@@ -93,12 +94,6 @@ public class StatusActivity extends Activity {
         } catch (YambaClientException e) {
             e.printStackTrace();
             return "failure";
-
-
-
-
-
-
         }
     }
 

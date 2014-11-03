@@ -30,7 +30,7 @@ public class DetailsFragment extends Fragment {
 	@Override
 	public void onResume() {
 		super.onResume();
-		long id = getActivity().getIntent().getLongExtra(StatusContract.Column.ID, -1);
+		long id = getActivity().getIntent().getLongExtra(YambaConstants.Column.ID, -1);
 
 		updateView(id);
 	}
@@ -43,7 +43,7 @@ public class DetailsFragment extends Fragment {
 			return;
 		}
 
-		Uri uri = ContentUris.withAppendedId(StatusContract.CONTENT_URI, id);
+		Uri uri = ContentUris.withAppendedId(YambaConstants.CONTENT_URI, id);
 		
 		Cursor cursor = getActivity().getContentResolver().query(uri, null,
 				null, null, null);
@@ -51,11 +51,11 @@ public class DetailsFragment extends Fragment {
 			return;
 		
 		String user = cursor.getString(cursor
-				.getColumnIndex(StatusContract.Column.USER));
+				.getColumnIndex(YambaConstants.Column.USER));
 		String message = cursor.getString(cursor
-				.getColumnIndex(StatusContract.Column.MESSAGE));
+				.getColumnIndex(YambaConstants.Column.MESSAGE));
 		long createdAt = cursor.getLong(cursor
-				.getColumnIndex(StatusContract.Column.CREATED_AT));
+				.getColumnIndex(YambaConstants.Column.CREATED_AT));
 		
 		textUser.setText(user);
 		textMessage.setText(message);

@@ -1,19 +1,20 @@
 package com.thenewcircle.yamba;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -25,7 +26,7 @@ import com.thenewcircle.yamba.client.YambaStatus;
 
 import java.util.List;
 
-public class StatusActivity extends Activity implements SharedPreferences.OnSharedPreferenceChangeListener {
+public class StatusActivity extends Activity {
 
     private static final String TAG = StatusActivity.class.getSimpleName();
 
@@ -35,12 +36,10 @@ public class StatusActivity extends Activity implements SharedPreferences.OnShar
     private int mDefaultColor;
     private AsyncTask task;
 
-    private String username;
-    private String password;
-
     public void whenUserClicksButton(View view) {
         Log.d("StatusActivity", "User pressed button");
     }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,11 +91,6 @@ public class StatusActivity extends Activity implements SharedPreferences.OnShar
 
         });
 
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(StatusActivity.this);
-
-        username = prefs.getString("username", "student");
-        password = prefs.getString("password", "password");
-
         Log.d(TAG, "onCreated");
     }
 
@@ -111,28 +105,8 @@ public class StatusActivity extends Activity implements SharedPreferences.OnShar
 
     public void postTweet(String tweet) {
 
-        task = new PostTweetTask(this).execute(tweet);
+        task = new PostTweetTask(getActivity()).execute(tweet);
 
-    }
-
-    @Override
-    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        username = sharedPreferences.getString("username", "student");
-        password = sharedPreferences.getString("password", "password");
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        PreferenceManager.getDefaultSharedPreferences(this)
-                .unregisterOnSharedPreferenceChangeListener(this);  // 2
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        PreferenceManager.getDefaultSharedPreferences(this)
-                .registerOnSharedPreferenceChangeListener(this);  // 3
     }
 
     private class PostTweetTask extends AsyncTask<String, Void, String> {
@@ -158,12 +132,7 @@ public class StatusActivity extends Activity implements SharedPreferences.OnShar
                 return "cancelled";
             }
 
-//            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(StatusActivity.this);
-//
-//            String username = prefs.getString("username", "student");
-//            String password = prefs.getString("password", "password");
-
-            YambaClient yambaClient = new YambaClient(username, password);
+            YambaClient yambaClient = new YambaClient(YambaApplication.getUsername(), YambaApplication.getPassword());
 
             try {
                 yambaClient.postStatus(tweet[0]);
@@ -212,7 +181,7 @@ public class StatusActivity extends Activity implements SharedPreferences.OnShar
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            Intent activityIntent = new Intent(this, YambaPrefsActivity.class);
+            Intent activityIntent = new Intent(this, SettingsActivity.class);
             startActivity(activityIntent);
             return true;
         }

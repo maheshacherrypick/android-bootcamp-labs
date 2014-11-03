@@ -24,6 +24,7 @@ public class NotificationReceiver extends BroadcastReceiver {
                 PendingIntent.getActivity(context, -1, notificationIntent, PendingIntent.FLAG_ONE_SHOT);
 
 		Notification notification = new Notification.Builder(context)
+                .setTicker("You have new new tweets")
 				.setContentTitle("New tweets!")
 				.setContentText("You've got " + count + " new tweets")
 				.setSmallIcon(android.R.drawable.sym_action_email)

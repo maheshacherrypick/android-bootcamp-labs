@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="tweet_size">155</integer>
+    <color name="warning_color">#ff3b9eff</color>
+</resources>

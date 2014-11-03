@@ -10,7 +10,7 @@ public class DbHelper extends SQLiteOpenHelper {
 	private static final String TAG = DbHelper.class.getSimpleName();
 
 	public DbHelper(Context context) {
-		super(context, StatusContract.DB_NAME, null, StatusContract.DB_VERSION);
+		super(context, YambaConstants.DB_NAME, null, YambaConstants.DB_VERSION);
 	}
 
 	// Called only once first time we create the database
@@ -18,10 +18,10 @@ public class DbHelper extends SQLiteOpenHelper {
 	public void onCreate(SQLiteDatabase db) {
 		String sql = String
 				.format("create table %s (%s int primary key, %s text, %s text, %s int)",
-						StatusContract.TABLE, StatusContract.Column.ID,
-						StatusContract.Column.USER,
-						StatusContract.Column.MESSAGE,
-						StatusContract.Column.CREATED_AT);
+						YambaConstants.TABLE, YambaConstants.Column.ID,
+						YambaConstants.Column.USER,
+						YambaConstants.Column.MESSAGE,
+						YambaConstants.Column.CREATED_AT);
 		Log.d(TAG, "onCreate with SQL: "+sql);
 		db.execSQL(sql);
 	}
@@ -30,7 +30,7 @@ public class DbHelper extends SQLiteOpenHelper {
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		// Typically you do ALTER TABLE ...
-		db.execSQL("drop table if exists " + StatusContract.TABLE);
+		db.execSQL("drop table if exists " + YambaConstants.TABLE);
 		onCreate(db);
 	}
 

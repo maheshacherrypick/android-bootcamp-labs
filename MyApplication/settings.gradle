@@ -1,0 +1,3 @@
+include ':app', ':lib', ':jniapp', ':fibapp', ':fibonacciNative2', ':ndkjniapp2', ':aidl'
+include ':fibonacciNative'
+include ':fibonacciNative'

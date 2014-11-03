@@ -31,17 +31,17 @@ public class YambaWidget extends AppWidgetProvider {
 
 		// Get the latest tweet
 		Cursor cursor = context.getContentResolver().query(
-				StatusContract.CONTENT_URI, null, null, null,
-				StatusContract.DEFAULT_SORT);
+				YambaConstants.CONTENT_URI, null, null, null,
+				YambaConstants.DEFAULT_SORT);
 		if (!cursor.moveToFirst())
 			return;
 
 		String user = cursor.getString(cursor
-				.getColumnIndex(StatusContract.Column.USER));
+				.getColumnIndex(YambaConstants.Column.USER));
 		String message = cursor.getString(cursor
-				.getColumnIndex(StatusContract.Column.MESSAGE));
+				.getColumnIndex(YambaConstants.Column.MESSAGE));
 		long createdAt = cursor.getLong(cursor
-				.getColumnIndex(StatusContract.Column.CREATED_AT));
+				.getColumnIndex(YambaConstants.Column.CREATED_AT));
 
 		PendingIntent operation = PendingIntent.getActivity(context, -1,
 				new Intent(context, TimelineActivity.class),

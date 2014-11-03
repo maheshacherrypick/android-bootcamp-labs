@@ -3,7 +3,7 @@ package com.thenewcircle.yamba;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 
-public class YambaPrefsActivity extends PreferenceActivity {
+public class SettingsActivity extends PreferenceActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

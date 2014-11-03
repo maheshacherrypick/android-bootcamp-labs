@@ -56,18 +56,16 @@ public class RefreshService extends IntentService {
 
 				values.clear();
 
-				values.put(StatusContract.Column.ID, status.getId());
-				values.put(StatusContract.Column.USER, status.getUser());
-				values.put(StatusContract.Column.MESSAGE, status.getMessage());
-				values.put(StatusContract.Column.CREATED_AT, status.getCreatedAt().getTime());
+				values.put(YambaConstants.Column.ID, status.getId());
+				values.put(YambaConstants.Column.USER, status.getUser());
+				values.put(YambaConstants.Column.MESSAGE, status.getMessage());
+				values.put(YambaConstants.Column.CREATED_AT, status.getCreatedAt().getTime());
 
-				Uri uri = getContentResolver().insert(StatusContract.CONTENT_URI, values);
+				Uri uri = getContentResolver().insert(YambaConstants.CONTENT_URI, values);
 
 				if (uri != null) {
 					count++;
-					Log.d(TAG,
-							String.format("%s: %s", status.getUser(),
-									status.getMessage()));
+					Log.d(TAG, String.format("%s: %s", status.getUser(), status.getMessage()));
 				}
 			}
 

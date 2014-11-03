@@ -41,7 +41,7 @@ public class TimelineActivity extends Activity {
 			startService(new Intent(this, RefreshService.class));
 			return true;
 		case R.id.action_purge:
-			int rows = getContentResolver().delete(StatusContract.CONTENT_URI, null, null);
+			int rows = getContentResolver().delete(YambaConstants.CONTENT_URI, null, null);
 			Toast.makeText(this, "Deleted "+rows+" rows", Toast.LENGTH_LONG).show();
 			return true;
 		default:

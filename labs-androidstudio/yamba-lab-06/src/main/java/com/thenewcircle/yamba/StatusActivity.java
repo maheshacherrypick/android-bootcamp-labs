@@ -2,6 +2,7 @@ package com.thenewcircle.yamba;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -91,8 +92,9 @@ public class StatusActivity extends Activity {
     }
 
     public void postTweet(String tweet) {
-
-        task = new PostTweetTask(this).execute(tweet);
+        if (task != null) {
+            Log.d(TAG, "Running dialog.onDismiss");
+        }
 
     }
 
@@ -133,6 +135,22 @@ public class StatusActivity extends Activity {
         protected void onPostExecute(String result) {
             dialog.dismiss();
             Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
+            dialog.onBackPressed();
+            dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                @Override
+                public void onDismiss(DialogInterface dialog) {
+                    Log.d(TAG, "Running dialog.onDismiss");
+                    task.cancel(true);
+                }
+            });
+            dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                @Override
+                public void onCancel(DialogInterface dialog) {
+                    Log.d(TAG, "Running dialog.onCancel");
+                    task.cancel(true);
+                }
+            });
+
         }
 
         @Override
@@ -140,6 +158,7 @@ public class StatusActivity extends Activity {
             dialog = new ProgressDialog(activity);
             dialog.setMessage("Posting tweet...");
             dialog.show();
+            task = null;
         }
     }
 

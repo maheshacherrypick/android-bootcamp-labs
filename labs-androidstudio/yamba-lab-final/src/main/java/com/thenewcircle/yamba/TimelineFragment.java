@@ -20,9 +20,9 @@ public class TimelineFragment extends ListFragment implements LoaderCallbacks<Cu
 
 {
 	private static final String TAG = TimelineFragment.class.getSimpleName();
-	private static final String[] FROM = { StatusContract.Column.USER,
-			StatusContract.Column.MESSAGE, StatusContract.Column.CREATED_AT,
-			StatusContract.Column.CREATED_AT };
+	private static final String[] FROM = { YambaConstants.Column.USER,
+			YambaConstants.Column.MESSAGE, YambaConstants.Column.CREATED_AT,
+			YambaConstants.Column.CREATED_AT };
 	private static final int[] TO = { R.id.list_item_text_user,
 			R.id.list_item_text_message, R.id.list_item_text_created_at,
 			R.id.list_item_freshness };
@@ -79,7 +79,7 @@ public class TimelineFragment extends ListFragment implements LoaderCallbacks<Cu
 			fragment.updateView(id);
 		} else {
             Intent intent = new Intent(getActivity(), DetailsActivity.class);
-            intent.putExtra(StatusContract.Column.ID, id);
+            intent.putExtra(YambaConstants.Column.ID, id);
 			startActivity(intent);
 		}
 	}
@@ -93,8 +93,8 @@ public class TimelineFragment extends ListFragment implements LoaderCallbacks<Cu
 			return null;
 		Log.d(TAG, "onCreateLoader");
 
-		return new CursorLoader(getActivity(), StatusContract.CONTENT_URI,
-				null, null, null, StatusContract.DEFAULT_SORT);
+		return new CursorLoader(getActivity(), YambaConstants.CONTENT_URI,
+				null, null, null, YambaConstants.DEFAULT_SORT);
 	}
 
 	@Override

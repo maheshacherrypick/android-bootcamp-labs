@@ -17,11 +17,10 @@ public class StatusProvider extends ContentProvider {
 
 	private static final UriMatcher sURIMatcher = new UriMatcher(
 			UriMatcher.NO_MATCH);
+
 	static {
-		sURIMatcher.addURI(StatusContract.AUTHORITY, StatusContract.TABLE,
-				StatusContract.STATUS_DIR);
-		sURIMatcher.addURI(StatusContract.AUTHORITY, StatusContract.TABLE
-				+ "/#", StatusContract.STATUS_ITEM);
+		sURIMatcher.addURI(YambaConstants.AUTHORITY, YambaConstants.TABLE, YambaConstants.STATUS_DIR);
+		sURIMatcher.addURI(YambaConstants.AUTHORITY, YambaConstants.TABLE + "/#", YambaConstants.STATUS_ITEM);
 	}
 
 	@Override
@@ -34,12 +33,12 @@ public class StatusProvider extends ContentProvider {
 	@Override
 	public String getType(Uri uri) {
 		switch (sURIMatcher.match(uri)) {
-		case StatusContract.STATUS_DIR:
-			Log.d(TAG, "gotType: " + StatusContract.STATUS_TYPE_DIR);
-			return StatusContract.STATUS_TYPE_DIR;
-		case StatusContract.STATUS_ITEM:
-			Log.d(TAG, "gotType: " + StatusContract.STATUS_TYPE_ITEM);
-			return StatusContract.STATUS_TYPE_ITEM;
+		case YambaConstants.STATUS_DIR:
+			Log.d(TAG, "gotType: " + YambaConstants.STATUS_TYPE_DIR);
+			return YambaConstants.STATUS_TYPE_DIR;
+		case YambaConstants.STATUS_ITEM:
+			Log.d(TAG, "gotType: " + YambaConstants.STATUS_TYPE_ITEM);
+			return YambaConstants.STATUS_TYPE_ITEM;
 		default:
 			throw new IllegalArgumentException("Illegal uri: " + uri);
 		}
@@ -50,17 +49,17 @@ public class StatusProvider extends ContentProvider {
 		Uri ret = null;
 
 		// Assert correct uri
-		if (sURIMatcher.match(uri) != StatusContract.STATUS_DIR) {
+		if (sURIMatcher.match(uri) != YambaConstants.STATUS_DIR) {
 			throw new IllegalArgumentException("Illegal uri: " + uri);
 		}
 
 		SQLiteDatabase db = dbHelper.getWritableDatabase();
-		long rowId = db.insertWithOnConflict(StatusContract.TABLE, null,
+		long rowId = db.insertWithOnConflict(YambaConstants.TABLE, null,
 				values, SQLiteDatabase.CONFLICT_IGNORE);
 
 		// Was insert successful?
 		if (rowId != -1) {
-			long id = values.getAsLong(StatusContract.Column.ID);
+			long id = values.getAsLong(YambaConstants.Column.ID);
 			ret = ContentUris.withAppendedId(uri, id);
 			Log.d(TAG, "inserted uri: " + ret);
 			
@@ -77,13 +76,13 @@ public class StatusProvider extends ContentProvider {
 		String where;
 
 		switch (sURIMatcher.match(uri)) {
-		case StatusContract.STATUS_DIR:
+		case YambaConstants.STATUS_DIR:
 			// so we count updated rows
 			where = selection;
 			break;
-		case StatusContract.STATUS_ITEM:
+		case YambaConstants.STATUS_ITEM:
 			long id = ContentUris.parseId(uri);
-			where = StatusContract.Column.ID
+			where = YambaConstants.Column.ID
 					+ "="
 					+ id
 					+ (TextUtils.isEmpty(selection) ? "" : " and ( "
@@ -94,7 +93,7 @@ public class StatusProvider extends ContentProvider {
 		}
 
 		SQLiteDatabase db = dbHelper.getWritableDatabase();
-		int ret = db.update(StatusContract.TABLE, values, where, selectionArgs);
+		int ret = db.update(YambaConstants.TABLE, values, where, selectionArgs);
 
 		if(ret>0) {
 			// Notify that data for this uri has changed
@@ -113,13 +112,13 @@ public class StatusProvider extends ContentProvider {
 		String where;
 
 		switch (sURIMatcher.match(uri)) {
-		case StatusContract.STATUS_DIR:
+		case YambaConstants.STATUS_DIR:
 			// so we count deleted rows
 			where = (selection == null) ? "1" : selection;
 			break;
-		case StatusContract.STATUS_ITEM:
+		case YambaConstants.STATUS_ITEM:
 			long id = ContentUris.parseId(uri);
-			where = StatusContract.Column.ID
+			where = YambaConstants.Column.ID
 					+ "="
 					+ id
 					+ (TextUtils.isEmpty(selection) ? "" : " and ( "
@@ -130,7 +129,7 @@ public class StatusProvider extends ContentProvider {
 		}
 
 		SQLiteDatabase db = dbHelper.getWritableDatabase();
-		int ret = db.delete(StatusContract.TABLE, where, selectionArgs);
+		int ret = db.delete(YambaConstants.TABLE, where, selectionArgs);
 
 		if(ret>0) {
 			// Notify that data for this uri has changed
@@ -147,20 +146,19 @@ public class StatusProvider extends ContentProvider {
 			String[] selectionArgs, String sortOrder) {
 
 		SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
-		qb.setTables( StatusContract.TABLE );
+		qb.setTables( YambaConstants.TABLE );
 
 		switch (sURIMatcher.match(uri)) {
-		case StatusContract.STATUS_DIR:
+		case YambaConstants.STATUS_DIR:
 			break;
-		case StatusContract.STATUS_ITEM:
-			qb.appendWhere(StatusContract.Column.ID + "="
-					+ uri.getLastPathSegment());
+		case YambaConstants.STATUS_ITEM:
+			qb.appendWhere(YambaConstants.Column.ID + "=" + uri.getLastPathSegment());
 			break;
 		default:
 			throw new IllegalArgumentException("Illegal uri: " + uri);
 		}
 
-		String orderBy = (TextUtils.isEmpty(sortOrder)) ? StatusContract.DEFAULT_SORT
+		String orderBy = (TextUtils.isEmpty(sortOrder)) ? YambaConstants.DEFAULT_SORT
 				: sortOrder;
 		
 		SQLiteDatabase db = dbHelper.getReadableDatabase();

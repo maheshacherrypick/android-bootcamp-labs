@@ -29,5 +29,5 @@ public class YambaStatus {
     public String getUser() { return user; }
 
     /** @return the message */
-    public String getMessage() { return "*** " + message; }
+    public String getMessage() { return message; }
 }

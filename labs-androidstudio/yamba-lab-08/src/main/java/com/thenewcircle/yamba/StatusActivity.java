@@ -116,22 +116,35 @@ public class StatusActivity extends Activity implements SharedPreferences.OnShar
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        username = sharedPreferences.getString("username", "student");
-        password = sharedPreferences.getString("password", "password");
+        if (key.equals("username")) {
+            username = sharedPreferences.getString("username", "student");
+        }
+        Log.d(TAG,"onSharedPreferenceChanged");
+        String USERNAME_KEY = getResources().getString(R.string.prefsUsernameKey);
+        String PASSWORD_KEY = getResources().getString(R.string.prefsPasswordKey);
+        username = sharedPreferences.getString(USERNAME_KEY, "student");
+        password = sharedPreferences.getString(PASSWORD_KEY, "password");
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         PreferenceManager.getDefaultSharedPreferences(this)
-                .unregisterOnSharedPreferenceChangeListener(this);  // 2
+                .registerOnSharedPreferenceChangeListener(this);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         PreferenceManager.getDefaultSharedPreferences(this)
-                .registerOnSharedPreferenceChangeListener(this);  // 3
+                .registerOnSharedPreferenceChangeListener(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        PreferenceManager.getDefaultSharedPreferences(this)
+                .unregisterOnSharedPreferenceChangeListener(this);
     }
 
     private class PostTweetTask extends AsyncTask<String, Void, String> {
@@ -145,6 +158,7 @@ public class StatusActivity extends Activity implements SharedPreferences.OnShar
 
         @Override
         protected String doInBackground(String... tweet) {
+
 
             try {
                 Thread.sleep(3000);
@@ -211,7 +225,7 @@ public class StatusActivity extends Activity implements SharedPreferences.OnShar
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            Intent activityIntent = new Intent(this, YambaPrefsActivity.class);
+            Intent activityIntent = new Intent(this, SettingsActivity.class);
             startActivity(activityIntent);
             return true;
         }
@@ -220,8 +234,6 @@ public class StatusActivity extends Activity implements SharedPreferences.OnShar
             Log.d("StatusActivity","Item Pressed");
             return true;
         }
-
-
 
         return super.onOptionsItemSelected(item);
     }
