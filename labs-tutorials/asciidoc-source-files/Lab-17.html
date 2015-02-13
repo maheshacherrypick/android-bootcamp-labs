@@ -840,19 +840,49 @@ Understanding the contracts between content provider and data source
 <div class="sect1">
 <h2 id="_setup">Setup</h2>
 <div class="sectionbody">
-<div class="paragraph"><p>Lab 15.0 has been completed.</p></div>
+<div class="paragraph"><p>Prior labs have been completed.</p></div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="_detailed_steps">Detailed Steps</h2>
 <div class="sectionbody">
-<div class="olist arabic"><ol class="arabic" start="1">
+<div class="olist arabic"><ol class="arabic">
 <li>
 <p>
-Create SQLite Open Helper <span class="monospaced">com.thenewcircle.yamba</span>.
+Create a class containing all of the constants that will be used.
 </p>
+<div class="listingblock">
+<div class="title">StatusContract.java</div>
+<div class="content"><div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">StatusContract</span> <span class="o">{</span>
+
+        <span class="c1">// DB specific constants</span>
+        <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">DB_NAME</span> <span class="o">=</span> <span class="s">&quot;timeline.db&quot;</span><span class="o">;</span>
+        <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">DB_VERSION</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span>
+        <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">TABLE</span> <span class="o">=</span> <span class="s">&quot;status&quot;</span><span class="o">;</span>
+
+        <span class="c1">// Provider specific constants</span>
+        <span class="c1">// content://com.thenewcircle.android.yamba.StatusProvider/status</span>
+        <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">AUTHORITY</span> <span class="o">=</span> <span class="s">&quot;com.thenewcircle.yamba.StatusProvider&quot;</span><span class="o">;</span>
+        <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">Uri</span> <span class="n">CONTENT_URI</span> <span class="o">=</span> <span class="n">Uri</span><span class="o">.</span><span class="na">parse</span><span class="o">(</span><span class="s">&quot;content://&quot;</span> <span class="o">+</span> <span class="n">AUTHORITY</span> <span class="o">+</span> <span class="s">&quot;/&quot;</span> <span class="o">+</span> <span class="n">TABLE</span><span class="o">);</span>
+        <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">STATUS_ITEM</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span>
+        <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">STATUS_DIR</span> <span class="o">=</span> <span class="mi">2</span><span class="o">;</span>
+        <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">STATUS_TYPE_ITEM</span> <span class="o">=</span> <span class="s">&quot;vnd.android.cursor.item/vnd.com.thenewcircle.yamba.provider.status&quot;</span><span class="o">;</span>
+        <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">STATUS_TYPE_DIR</span> <span class="o">=</span> <span class="s">&quot;vnd.android.cursor.dir/vnd.com.thenewcircle.yamba.provider.status&quot;</span><span class="o">;</span>
+        <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">DEFAULT_SORT</span> <span class="o">=</span> <span class="n">Column</span><span class="o">.</span><span class="na">CREATED_AT</span> <span class="o">+</span> <span class="s">&quot; DESC&quot;</span><span class="o">;</span>  <span class="c1">// Descending</span>
+
+        <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Column</span> <span class="o">{</span>
+                <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">ID</span> <span class="o">=</span> <span class="n">BaseColumns</span><span class="o">.</span><span class="na">_ID</span><span class="o">;</span>  <span class="c1">// &quot;_id&quot;</span>
+                <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">USER</span> <span class="o">=</span> <span class="s">&quot;user&quot;</span><span class="o">;</span>
+                <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">MESSAGE</span> <span class="o">=</span> <span class="s">&quot;message&quot;</span><span class="o">;</span>
+                <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">CREATED_AT</span> <span class="o">=</span> <span class="s">&quot;created_at&quot;</span><span class="o">;</span>
+        <span class="o">}</span>
+<span class="o">}</span>
+</pre></div></div></div>
 </li>
-</ol></div>
+<li>
+<p>
+Create SQLite Open Helper.
+</p>
 <div class="listingblock">
 <div class="title">DbHelper.java</div>
 <div class="content"><div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">DbHelper</span> <span class="kd">extends</span> <span class="n">SQLiteOpenHelper</span> <span class="o">{</span>
@@ -868,149 +898,116 @@ Create SQLite Open Helper <span class="monospaced">com.thenewcircle.yamba</span>
 
 <span class="o">}</span>
 </pre></div></div></div>
-<div class="admonitionblock">
-<table><tr>
-<td class="icon tip">
-</td>
-<td class="content">You may want to put your constants in a special class (i.e. <span class="monospaced">YambaConstants</span>)</td>
-</tr></table>
-</div>
-<div class="olist arabic"><ol class="arabic" start="3">
+</li>
 <li>
 <p>
 Implement the <span class="monospaced">onCreate</span> method
 </p>
-</li>
-</ol></div>
 <div class="listingblock">
 <div class="title">DbHelper.java</div>
-<div class="content"><div class="highlight"><pre><span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">TABLE</span> <span class="o">=</span> <span class="s">&quot;status&quot;</span><span class="o">;</span>
-
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Column</span> <span class="o">{</span>
-        <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">ID</span> <span class="o">=</span> <span class="n">BaseColumns</span><span class="o">.</span><span class="na">_ID</span><span class="o">;</span>
-        <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">USER</span> <span class="o">=</span> <span class="s">&quot;user&quot;</span><span class="o">;</span>
-        <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">MESSAGE</span> <span class="o">=</span> <span class="s">&quot;message&quot;</span><span class="o">;</span>
-        <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">CREATED_AT</span> <span class="o">=</span> <span class="s">&quot;created_at&quot;</span><span class="o">;</span>
-<span class="o">}</span>
-
-<span class="c1">// Called only once first time we create the database</span>
+<div class="content"><div class="highlight"><pre><span class="c1">// Called only once first time we create the database</span>
 <span class="nd">@Override</span>
 <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">SQLiteDatabase</span> <span class="n">db</span><span class="o">)</span> <span class="o">{</span>
         <span class="n">String</span> <span class="n">sql</span> <span class="o">=</span> <span class="n">String</span>
                         <span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">&quot;create table %s (%s int primary key, %s text, %s text, %s int)&quot;</span><span class="o">,</span>
-                                        <span class="n">TABLE</span><span class="o">,</span> <span class="n">Column</span><span class="o">.</span><span class="na">ID</span><span class="o">,</span>
-                                        <span class="n">Column</span><span class="o">.</span><span class="na">USER</span><span class="o">,</span>
-                                        <span class="n">Column</span><span class="o">.</span><span class="na">MESSAGE</span><span class="o">,</span>
-                                        <span class="n">Column</span><span class="o">.</span><span class="na">CREATED_AT</span><span class="o">);</span>
+                                        <span class="n">StatusContract</span><span class="o">.</span><span class="na">TABLE</span><span class="o">,</span> <span class="n">StatusContract</span><span class="o">.</span><span class="na">Column</span><span class="o">.</span><span class="na">ID</span><span class="o">,</span>
+                                        <span class="n">StatusContract</span><span class="o">.</span><span class="na">Column</span><span class="o">.</span><span class="na">USER</span><span class="o">,</span>
+                                        <span class="n">StatusContract</span><span class="o">.</span><span class="na">Column</span><span class="o">.</span><span class="na">MESSAGE</span><span class="o">,</span>
+                                        <span class="n">StatusContract</span><span class="o">.</span><span class="na">Column</span><span class="o">.</span><span class="na">CREATED_AT</span><span class="o">);</span>
         <span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&quot;onCreate with SQL: &quot;</span><span class="o">+</span><span class="n">sql</span><span class="o">);</span>
         <span class="n">db</span><span class="o">.</span><span class="na">execSQL</span><span class="o">(</span><span class="n">sql</span><span class="o">);</span>
 <span class="o">}</span>
 </pre></div></div></div>
-<div class="olist arabic"><ol class="arabic" start="3">
+</li>
 <li>
 <p>
 Implement the <span class="monospaced">onUpgrade</span> method
 </p>
-</li>
-</ol></div>
 <div class="listingblock">
 <div class="title">DbHelper.java</div>
 <div class="content"><div class="highlight"><pre><span class="c1">// Gets called whenever existing version != new version, i.e. schema changed</span>
 <span class="nd">@Override</span>
 <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onUpgrade</span><span class="o">(</span><span class="n">SQLiteDatabase</span> <span class="n">db</span><span class="o">,</span> <span class="kt">int</span> <span class="n">oldVersion</span><span class="o">,</span> <span class="kt">int</span> <span class="n">newVersion</span><span class="o">)</span> <span class="o">{</span>
         <span class="c1">// Typically you do ALTER TABLE ...</span>
-        <span class="n">db</span><span class="o">.</span><span class="na">execSQL</span><span class="o">(</span><span class="s">&quot;drop table if exists &quot;</span> <span class="o">+</span> <span class="n">TABLE</span><span class="o">);</span>
+        <span class="n">db</span><span class="o">.</span><span class="na">execSQL</span><span class="o">(</span><span class="s">&quot;drop table if exists &quot;</span> <span class="o">+</span> <span class="n">StatusContract</span><span class="o">.</span><span class="na">TABLE</span><span class="o">);</span>
         <span class="n">onCreate</span><span class="o">(</span><span class="n">db</span><span class="o">);</span>
 <span class="o">}</span>
 </pre></div></div></div>
-<div class="olist arabic"><ol class="arabic" start="4">
+</li>
 <li>
 <p>
-Implement Content Provier
+Create the Content Provier class.
+It will act as a wrapper around the database and will expose the CRUD methods.
 </p>
-</li>
-</ol></div>
 <div class="listingblock">
 <div class="title">StatusProvider.java</div>
 <div class="content"><div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">StatusProvider</span> <span class="kd">extends</span> <span class="n">ContentProvider</span> <span class="o">{</span>
 
   <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">TAG</span> <span class="o">=</span> <span class="n">StatusProvider</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">getSimpleName</span><span class="o">();</span>
-  <span class="kd">private</span> <span class="n">DbHelper</span> <span class="n">dbHelper</span><span class="o">;</span>
 
 <span class="o">}</span>
 </pre></div></div></div>
-<div class="olist arabic"><ol class="arabic" start="4">
+</li>
 <li>
 <p>
-Implement the <span class="monospaced">onCreate</span> method
+Implement the <span class="monospaced">onCreate</span> method.
+Create the connection to the database.
 </p>
-</li>
-</ol></div>
 <div class="listingblock">
 <div class="title">StatusProvider.java</div>
-<div class="content"><div class="highlight"><pre>        <span class="nd">@Override</span>
-        <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">onCreate</span><span class="o">()</span> <span class="o">{</span>
-                <span class="n">dbHelper</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DbHelper</span><span class="o">(</span><span class="n">getContext</span><span class="o">());</span>
-                <span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&quot;onCreated&quot;</span><span class="o">);</span>
-                <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
-        <span class="o">}</span>
-</pre></div></div></div>
-<div class="olist arabic"><ol class="arabic" start="5">
-<li>
-<p>
-Implement the URI Matcher
-</p>
-</li>
-</ol></div>
-<div class="listingblock">
-<div class="title">StatusProvider.java</div>
-<div class="content"><div class="highlight"><pre><span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">TABLE</span> <span class="o">=</span> <span class="s">&quot;status&quot;</span><span class="o">;</span>
-<span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">AUTHORITY</span> <span class="o">=</span> <span class="s">&quot;com.thenewcircle.yamba.StatusProvider&quot;</span><span class="o">;</span>
-<span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">Uri</span> <span class="n">CONTENT_URI</span> <span class="o">=</span> <span class="n">Uri</span><span class="o">.</span><span class="na">parse</span><span class="o">(</span><span class="s">&quot;content://&quot;</span> <span class="o">+</span> <span class="n">AUTHORITY</span>        <span class="o">+</span> <span class="s">&quot;/&quot;</span> <span class="o">+</span> <span class="n">TABLE</span><span class="o">);</span>
-<span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">STATUS_ITEM</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span>
-
-<span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">UriMatcher</span> <span class="n">sURIMatcher</span> <span class="o">=</span> <span class="k">new</span> <span class="n">UriMatcher</span><span class="o">(</span><span class="n">UriMatcher</span><span class="o">.</span><span class="na">NO_MATCH</span><span class="o">);</span>
-
-<span class="kd">static</span> <span class="o">{</span>
-          <span class="n">sURIMatcher</span><span class="o">.</span><span class="na">addURI</span><span class="o">(</span><span class="n">AUTHORITY</span><span class="o">,</span> <span class="n">TABLE</span><span class="o">,</span> <span class="n">STATUS_DIR</span><span class="o">);</span>
-          <span class="n">sURIMatcher</span><span class="o">.</span><span class="na">addURI</span><span class="o">(</span><span class="n">AUTHORITY</span><span class="o">,</span> <span class="n">TABLE</span>           <span class="o">+</span> <span class="s">&quot;/#&quot;</span><span class="o">,</span> <span class="n">STATUS_ITEM</span><span class="o">);</span>
-<span class="o">}</span>
-</pre></div></div></div>
-<div class="olist arabic"><ol class="arabic" start="6">
-<li>
-<p>
-Implement getType
-</p>
-</li>
-</ol></div>
-<div class="listingblock">
-<div class="title">StatusProvider.java</div>
-<div class="content"><div class="highlight"><pre><span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">STATUS_ITEM</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span>
-<span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">STATUS_DIR</span> <span class="o">=</span> <span class="mi">2</span><span class="o">;</span>
-<span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">STATUS_TYPE_ITEM</span> <span class="o">=</span> <span class="s">&quot;vnd.android.cursor.item/vnd.com.thenewcircle.yamba.provider.status&quot;</span><span class="o">;</span>
-<span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">STATUS_TYPE_DIR</span> <span class="o">=</span> <span class="s">&quot;vnd.android.cursor.dir/vnd.com.thenewcircle.yamba.provider.status&quot;</span><span class="o">;</span>
+<div class="content"><div class="highlight"><pre><span class="kd">private</span> <span class="n">DbHelper</span> <span class="n">dbHelper</span><span class="o">;</span>
 
 <span class="nd">@Override</span>
+<span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">onCreate</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">dbHelper</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DbHelper</span><span class="o">(</span><span class="n">getContext</span><span class="o">());</span>
+        <span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&quot;onCreated&quot;</span><span class="o">);</span>
+        <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+<span class="o">}</span>
+</pre></div></div></div>
+</li>
+<li>
+<p>
+Implement the URI Matcher.  This method analyses the incoming URI
+to verify that the URI corresponds to the CRUD operation.
+</p>
+<div class="listingblock">
+<div class="title">StatusProvider.java</div>
+<div class="content"><div class="highlight"><pre><span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">UriMatcher</span> <span class="n">sURIMatcher</span> <span class="o">=</span> <span class="k">new</span> <span class="n">UriMatcher</span><span class="o">(</span>
+                <span class="n">UriMatcher</span><span class="o">.</span><span class="na">NO_MATCH</span><span class="o">);</span>
+
+<span class="kd">static</span> <span class="o">{</span>
+        <span class="n">sURIMatcher</span><span class="o">.</span><span class="na">addURI</span><span class="o">(</span><span class="n">StatusContract</span><span class="o">.</span><span class="na">AUTHORITY</span><span class="o">,</span> <span class="n">StatusContract</span><span class="o">.</span><span class="na">TABLE</span><span class="o">,</span>
+                        <span class="n">StatusContract</span><span class="o">.</span><span class="na">STATUS_DIR</span><span class="o">);</span>
+        <span class="n">sURIMatcher</span><span class="o">.</span><span class="na">addURI</span><span class="o">(</span><span class="n">StatusContract</span><span class="o">.</span><span class="na">AUTHORITY</span><span class="o">,</span> <span class="n">StatusContract</span><span class="o">.</span><span class="na">TABLE</span>
+                        <span class="o">+</span> <span class="s">&quot;/#&quot;</span><span class="o">,</span> <span class="n">StatusContract</span><span class="o">.</span><span class="na">STATUS_ITEM</span><span class="o">);</span>
+<span class="o">}</span>
+</pre></div></div></div>
+</li>
+<li>
+<p>
+Implement <span class="monospaced">getType</span> which returns the data type for the requested operation.
+</p>
+<div class="listingblock">
+<div class="title">StatusProvider.java</div>
+<div class="content"><div class="highlight"><pre><span class="nd">@Override</span>
 <span class="kd">public</span> <span class="n">String</span> <span class="nf">getType</span><span class="o">(</span><span class="n">Uri</span> <span class="n">uri</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">switch</span> <span class="o">(</span><span class="n">sURIMatcher</span><span class="o">.</span><span class="na">match</span><span class="o">(</span><span class="n">uri</span><span class="o">))</span> <span class="o">{</span>
-        <span class="k">case</span> <span class="nl">STATUS_DIR:</span>
-                <span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&quot;gotType: &quot;</span> <span class="o">+</span> <span class="n">STATUS_TYPE_DIR</span><span class="o">);</span>
-                <span class="k">return</span> <span class="n">STATUS_TYPE_DIR</span><span class="o">;</span>
-        <span class="k">case</span> <span class="nl">STATUS_ITEM:</span>
-                <span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&quot;gotType: &quot;</span> <span class="o">+</span> <span class="n">STATUS_TYPE_ITEM</span><span class="o">);</span>
-                <span class="k">return</span> <span class="n">STATUS_TYPE_ITEM</span><span class="o">;</span>
+        <span class="k">case</span> <span class="n">StatusContract</span><span class="o">.</span><span class="na">STATUS_DIR</span><span class="o">:</span>
+                <span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&quot;gotType: &quot;</span> <span class="o">+</span> <span class="n">StatusContract</span><span class="o">.</span><span class="na">STATUS_TYPE_DIR</span><span class="o">);</span>
+                <span class="k">return</span> <span class="n">StatusContract</span><span class="o">.</span><span class="na">STATUS_TYPE_DIR</span><span class="o">;</span>
+        <span class="k">case</span> <span class="n">StatusContract</span><span class="o">.</span><span class="na">STATUS_ITEM</span><span class="o">:</span>
+                <span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&quot;gotType: &quot;</span> <span class="o">+</span> <span class="n">StatusContract</span><span class="o">.</span><span class="na">STATUS_TYPE_ITEM</span><span class="o">);</span>
+                <span class="k">return</span> <span class="n">StatusContract</span><span class="o">.</span><span class="na">STATUS_TYPE_ITEM</span><span class="o">;</span>
         <span class="k">default</span><span class="o">:</span>
                 <span class="k">throw</span> <span class="k">new</span> <span class="nf">IllegalArgumentException</span><span class="o">(</span><span class="s">&quot;Illegal uri: &quot;</span> <span class="o">+</span> <span class="n">uri</span><span class="o">);</span>
         <span class="o">}</span>
 <span class="o">}</span>
 </pre></div></div></div>
-<div class="olist arabic"><ol class="arabic" start="6">
+</li>
 <li>
 <p>
-Implement insert
+Implement the <span class="monospaced">insert</span> operation.
 </p>
-</li>
-</ol></div>
 <div class="listingblock">
 <div class="title">StatusProvider.java</div>
 <div class="content"><div class="highlight"><pre><span class="nd">@Override</span>
@@ -1018,17 +1015,17 @@ Implement insert
         <span class="n">Uri</span> <span class="n">ret</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
 
         <span class="c1">// Assert correct uri</span>
-        <span class="k">if</span> <span class="o">(</span><span class="n">sURIMatcher</span><span class="o">.</span><span class="na">match</span><span class="o">(</span><span class="n">uri</span><span class="o">)</span> <span class="o">!=</span> <span class="n">STATUS_DIR</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">sURIMatcher</span><span class="o">.</span><span class="na">match</span><span class="o">(</span><span class="n">uri</span><span class="o">)</span> <span class="o">!=</span> <span class="n">StatusContract</span><span class="o">.</span><span class="na">STATUS_DIR</span><span class="o">)</span> <span class="o">{</span>
                 <span class="k">throw</span> <span class="k">new</span> <span class="nf">IllegalArgumentException</span><span class="o">(</span><span class="s">&quot;Illegal uri: &quot;</span> <span class="o">+</span> <span class="n">uri</span><span class="o">);</span>
         <span class="o">}</span>
 
         <span class="n">SQLiteDatabase</span> <span class="n">db</span> <span class="o">=</span> <span class="n">dbHelper</span><span class="o">.</span><span class="na">getWritableDatabase</span><span class="o">();</span>
-        <span class="kt">long</span> <span class="n">rowId</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="na">insertWithOnConflict</span><span class="o">(</span><span class="n">TABLE</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span>
+        <span class="kt">long</span> <span class="n">rowId</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="na">insertWithOnConflict</span><span class="o">(</span><span class="n">StatusContract</span><span class="o">.</span><span class="na">TABLE</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span>
                         <span class="n">values</span><span class="o">,</span> <span class="n">SQLiteDatabase</span><span class="o">.</span><span class="na">CONFLICT_IGNORE</span><span class="o">);</span>
 
         <span class="c1">// Was insert successful?</span>
         <span class="k">if</span> <span class="o">(</span><span class="n">rowId</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="o">)</span> <span class="o">{</span>
-                <span class="kt">long</span> <span class="n">id</span> <span class="o">=</span> <span class="n">values</span><span class="o">.</span><span class="na">getAsLong</span><span class="o">(</span><span class="n">ContentConstants</span><span class="o">.</span><span class="na">Column</span><span class="o">.</span><span class="na">ID</span><span class="o">);</span>
+                <span class="kt">long</span> <span class="n">id</span> <span class="o">=</span> <span class="n">values</span><span class="o">.</span><span class="na">getAsLong</span><span class="o">(</span><span class="n">StatusContract</span><span class="o">.</span><span class="na">Column</span><span class="o">.</span><span class="na">ID</span><span class="o">);</span>
                 <span class="n">ret</span> <span class="o">=</span> <span class="n">ContentUris</span><span class="o">.</span><span class="na">withAppendedId</span><span class="o">(</span><span class="n">uri</span><span class="o">,</span> <span class="n">id</span><span class="o">);</span>
                 <span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&quot;inserted uri: &quot;</span> <span class="o">+</span> <span class="n">ret</span><span class="o">);</span>
 
@@ -1039,40 +1036,271 @@ Implement insert
         <span class="k">return</span> <span class="n">ret</span><span class="o">;</span>
 <span class="o">}</span>
 </pre></div></div></div>
-<div class="olist arabic"><ol class="arabic" start="7">
-<li>
-<p>
-Implement update
-</p>
 </li>
 <li>
 <p>
-Implement delete
+Implement the <span class="monospaced">query</span> operation.
 </p>
-</li>
-<li>
-<p>
-Implement query
-</p>
-</li>
-<li>
-<p>
-Use content provider.  Insert the YambaStatus objects into the content provider.
-This should be done in the refresh service.
-</p>
-</li>
-</ol></div>
 <div class="listingblock">
-<div class="title">TimelineService.jva</div>
+<div class="title">StatusProvider.java</div>
+<div class="content"><div class="highlight"><pre><span class="c1">// SELECT username, message, created_at FROM status WHERE user=&#39;bob&#39; ORDER</span>
+<span class="c1">// BY created_at DESC;</span>
+<span class="nd">@Override</span>
+<span class="kd">public</span> <span class="n">Cursor</span> <span class="nf">query</span><span class="o">(</span><span class="n">Uri</span> <span class="n">uri</span><span class="o">,</span> <span class="n">String</span><span class="o">[]</span> <span class="n">projection</span><span class="o">,</span> <span class="n">String</span> <span class="n">selection</span><span class="o">,</span>
+                <span class="n">String</span><span class="o">[]</span> <span class="n">selectionArgs</span><span class="o">,</span> <span class="n">String</span> <span class="n">sortOrder</span><span class="o">)</span> <span class="o">{</span>
+
+        <span class="n">SQLiteQueryBuilder</span> <span class="n">qb</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SQLiteQueryBuilder</span><span class="o">();</span>
+        <span class="n">qb</span><span class="o">.</span><span class="na">setTables</span><span class="o">(</span> <span class="n">StatusContract</span><span class="o">.</span><span class="na">TABLE</span> <span class="o">);</span>
+
+        <span class="k">switch</span> <span class="o">(</span><span class="n">sURIMatcher</span><span class="o">.</span><span class="na">match</span><span class="o">(</span><span class="n">uri</span><span class="o">))</span> <span class="o">{</span>
+        <span class="k">case</span> <span class="n">StatusContract</span><span class="o">.</span><span class="na">STATUS_DIR</span><span class="o">:</span>
+                <span class="k">break</span><span class="o">;</span>
+        <span class="k">case</span> <span class="n">StatusContract</span><span class="o">.</span><span class="na">STATUS_ITEM</span><span class="o">:</span>
+                <span class="n">qb</span><span class="o">.</span><span class="na">appendWhere</span><span class="o">(</span><span class="n">StatusContract</span><span class="o">.</span><span class="na">Column</span><span class="o">.</span><span class="na">ID</span> <span class="o">+</span> <span class="s">&quot;=&quot;</span>
+                                <span class="o">+</span> <span class="n">uri</span><span class="o">.</span><span class="na">getLastPathSegment</span><span class="o">());</span>
+                <span class="k">break</span><span class="o">;</span>
+        <span class="k">default</span><span class="o">:</span>
+                <span class="k">throw</span> <span class="k">new</span> <span class="nf">IllegalArgumentException</span><span class="o">(</span><span class="s">&quot;Illegal uri: &quot;</span> <span class="o">+</span> <span class="n">uri</span><span class="o">);</span>
+        <span class="o">}</span>
+
+        <span class="n">String</span> <span class="n">orderBy</span> <span class="o">=</span> <span class="o">(</span><span class="n">TextUtils</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">(</span><span class="n">sortOrder</span><span class="o">))</span> <span class="o">?</span> <span class="n">StatusContract</span><span class="o">.</span><span class="na">DEFAULT_SORT</span>
+                        <span class="o">:</span> <span class="n">sortOrder</span><span class="o">;</span>
+
+        <span class="n">SQLiteDatabase</span> <span class="n">db</span> <span class="o">=</span> <span class="n">dbHelper</span><span class="o">.</span><span class="na">getReadableDatabase</span><span class="o">();</span>
+        <span class="n">Cursor</span> <span class="n">cursor</span> <span class="o">=</span> <span class="n">qb</span><span class="o">.</span><span class="na">query</span><span class="o">(</span><span class="n">db</span><span class="o">,</span> <span class="n">projection</span><span class="o">,</span> <span class="n">selection</span><span class="o">,</span> <span class="n">selectionArgs</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="n">orderBy</span><span class="o">);</span>
+
+        <span class="c1">// register for uri changes</span>
+        <span class="n">cursor</span><span class="o">.</span><span class="na">setNotificationUri</span><span class="o">(</span><span class="n">getContext</span><span class="o">().</span><span class="na">getContentResolver</span><span class="o">(),</span> <span class="n">uri</span><span class="o">);</span>
+
+        <span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&quot;queried records: &quot;</span><span class="o">+</span><span class="n">cursor</span><span class="o">.</span><span class="na">getCount</span><span class="o">());</span>
+        <span class="k">return</span> <span class="n">cursor</span><span class="o">;</span>
+<span class="o">}</span>
+</pre></div></div></div>
+</li>
+<li>
+<p>
+Implement the <span class="monospaced">update</span> operation.
+</p>
+<div class="listingblock">
+<div class="title">StatusProvider.java</div>
+<div class="content"><div class="highlight"><pre><span class="nd">@Override</span>
+<span class="kd">public</span> <span class="kt">int</span> <span class="nf">update</span><span class="o">(</span><span class="n">Uri</span> <span class="n">uri</span><span class="o">,</span> <span class="n">ContentValues</span> <span class="n">values</span><span class="o">,</span> <span class="n">String</span> <span class="n">selection</span><span class="o">,</span>
+                <span class="n">String</span><span class="o">[]</span> <span class="n">selectionArgs</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">String</span> <span class="n">where</span><span class="o">;</span>
+
+        <span class="k">switch</span> <span class="o">(</span><span class="n">sURIMatcher</span><span class="o">.</span><span class="na">match</span><span class="o">(</span><span class="n">uri</span><span class="o">))</span> <span class="o">{</span>
+        <span class="k">case</span> <span class="n">StatusContract</span><span class="o">.</span><span class="na">STATUS_DIR</span><span class="o">:</span>
+                <span class="c1">// so we count updated rows</span>
+                <span class="n">where</span> <span class="o">=</span> <span class="n">selection</span><span class="o">;</span>
+                <span class="k">break</span><span class="o">;</span>
+        <span class="k">case</span> <span class="n">StatusContract</span><span class="o">.</span><span class="na">STATUS_ITEM</span><span class="o">:</span>
+                <span class="kt">long</span> <span class="n">id</span> <span class="o">=</span> <span class="n">ContentUris</span><span class="o">.</span><span class="na">parseId</span><span class="o">(</span><span class="n">uri</span><span class="o">);</span>
+                <span class="n">where</span> <span class="o">=</span> <span class="n">StatusContract</span><span class="o">.</span><span class="na">Column</span><span class="o">.</span><span class="na">ID</span>
+                                <span class="o">+</span> <span class="s">&quot;=&quot;</span>
+                                <span class="o">+</span> <span class="n">id</span>
+                                <span class="o">+</span> <span class="o">(</span><span class="n">TextUtils</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">(</span><span class="n">selection</span><span class="o">)</span> <span class="o">?</span> <span class="s">&quot;&quot;</span> <span class="o">:</span> <span class="s">&quot; and ( &quot;</span>
+                                                <span class="o">+</span> <span class="n">selection</span> <span class="o">+</span> <span class="s">&quot; )&quot;</span><span class="o">);</span>
+                <span class="k">break</span><span class="o">;</span>
+        <span class="k">default</span><span class="o">:</span>
+                <span class="k">throw</span> <span class="k">new</span> <span class="nf">IllegalArgumentException</span><span class="o">(</span><span class="s">&quot;Illegal uri: &quot;</span> <span class="o">+</span> <span class="n">uri</span><span class="o">);</span>
+        <span class="o">}</span>
+
+        <span class="n">SQLiteDatabase</span> <span class="n">db</span> <span class="o">=</span> <span class="n">dbHelper</span><span class="o">.</span><span class="na">getWritableDatabase</span><span class="o">();</span>
+        <span class="kt">int</span> <span class="n">ret</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="na">update</span><span class="o">(</span><span class="n">StatusContract</span><span class="o">.</span><span class="na">TABLE</span><span class="o">,</span> <span class="n">values</span><span class="o">,</span> <span class="n">where</span><span class="o">,</span> <span class="n">selectionArgs</span><span class="o">);</span>
+
+        <span class="k">if</span><span class="o">(</span><span class="n">ret</span><span class="o">&gt;</span><span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+                <span class="c1">// Notify that data for this uri has changed</span>
+                <span class="n">getContext</span><span class="o">().</span><span class="na">getContentResolver</span><span class="o">().</span><span class="na">notifyChange</span><span class="o">(</span><span class="n">uri</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&quot;updated records: &quot;</span> <span class="o">+</span> <span class="n">ret</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">ret</span><span class="o">;</span>
+<span class="o">}</span>
+</pre></div></div></div>
+</li>
+<li>
+<p>
+Implement the <span class="monospaced">delete</span> operation.
+</p>
+<div class="listingblock">
+<div class="title">StatusProvider.java</div>
+<div class="content"><div class="highlight"><pre><span class="c1">// Implement Purge feature</span>
+<span class="c1">// Use db.delete()</span>
+<span class="c1">// DELETE FROM status WHERE id=? AND user=&#39;?&#39;</span>
+<span class="c1">// uri: content://com.thenewcircle.yamba.StatusProvider/status/47</span>
+<span class="nd">@Override</span>
+<span class="kd">public</span> <span class="kt">int</span> <span class="nf">delete</span><span class="o">(</span><span class="n">Uri</span> <span class="n">uri</span><span class="o">,</span> <span class="n">String</span> <span class="n">selection</span><span class="o">,</span> <span class="n">String</span><span class="o">[]</span> <span class="n">selectionArgs</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">String</span> <span class="n">where</span><span class="o">;</span>
+
+        <span class="k">switch</span> <span class="o">(</span><span class="n">sURIMatcher</span><span class="o">.</span><span class="na">match</span><span class="o">(</span><span class="n">uri</span><span class="o">))</span> <span class="o">{</span>
+        <span class="k">case</span> <span class="n">StatusContract</span><span class="o">.</span><span class="na">STATUS_DIR</span><span class="o">:</span>
+                <span class="c1">// so we count deleted rows</span>
+                <span class="n">where</span> <span class="o">=</span> <span class="o">(</span><span class="n">selection</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">?</span> <span class="s">&quot;1&quot;</span> <span class="o">:</span> <span class="n">selection</span><span class="o">;</span>
+                <span class="k">break</span><span class="o">;</span>
+        <span class="k">case</span> <span class="n">StatusContract</span><span class="o">.</span><span class="na">STATUS_ITEM</span><span class="o">:</span>
+                <span class="kt">long</span> <span class="n">id</span> <span class="o">=</span> <span class="n">ContentUris</span><span class="o">.</span><span class="na">parseId</span><span class="o">(</span><span class="n">uri</span><span class="o">);</span>
+                <span class="n">where</span> <span class="o">=</span> <span class="n">StatusContract</span><span class="o">.</span><span class="na">Column</span><span class="o">.</span><span class="na">ID</span>
+                                <span class="o">+</span> <span class="s">&quot;=&quot;</span>
+                                <span class="o">+</span> <span class="n">id</span>
+                                <span class="o">+</span> <span class="o">(</span><span class="n">TextUtils</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">(</span><span class="n">selection</span><span class="o">)</span> <span class="o">?</span> <span class="s">&quot;&quot;</span> <span class="o">:</span> <span class="s">&quot; and ( &quot;</span>
+                                                <span class="o">+</span> <span class="n">selection</span> <span class="o">+</span> <span class="s">&quot; )&quot;</span><span class="o">);</span>
+                <span class="k">break</span><span class="o">;</span>
+        <span class="k">default</span><span class="o">:</span>
+                <span class="k">throw</span> <span class="k">new</span> <span class="nf">IllegalArgumentException</span><span class="o">(</span><span class="s">&quot;Illegal uri: &quot;</span> <span class="o">+</span> <span class="n">uri</span><span class="o">);</span>
+        <span class="o">}</span>
+
+        <span class="n">SQLiteDatabase</span> <span class="n">db</span> <span class="o">=</span> <span class="n">dbHelper</span><span class="o">.</span><span class="na">getWritableDatabase</span><span class="o">();</span>
+        <span class="kt">int</span> <span class="n">ret</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="na">delete</span><span class="o">(</span><span class="n">StatusContract</span><span class="o">.</span><span class="na">TABLE</span><span class="o">,</span> <span class="n">where</span><span class="o">,</span> <span class="n">selectionArgs</span><span class="o">);</span>
+
+        <span class="k">if</span><span class="o">(</span><span class="n">ret</span><span class="o">&gt;</span><span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+                <span class="c1">// Notify that data for this uri has changed</span>
+                <span class="n">getContext</span><span class="o">().</span><span class="na">getContentResolver</span><span class="o">().</span><span class="na">notifyChange</span><span class="o">(</span><span class="n">uri</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&quot;deleted records: &quot;</span> <span class="o">+</span> <span class="n">ret</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">ret</span><span class="o">;</span>
+<span class="o">}</span>
+</pre></div></div></div>
+</li>
+<li>
+<p>
+Test the content provider.
+Use the <span class="monospaced">ProviderTestCase2</span> unit test class provided by the Android
+testing framework.
+</p>
+<div class="listingblock">
+<div class="title">StatusProviderTest.java</div>
+<div class="content"><div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">StatusProviderTest</span> <span class="kd">extends</span> <span class="n">ProviderTestCase2</span><span class="o">&lt;</span><span class="n">StatusProvider</span><span class="o">&gt;</span> <span class="o">{</span>
+
+    <span class="kd">public</span> <span class="nf">ContentProviderTest</span><span class="o">()</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">(</span><span class="n">StatusProvider</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">StatusContract</span><span class="o">.</span><span class="na">AUTHORITY</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">setUp</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">setUp</span><span class="o">();</span>
+        <span class="n">getMockContentResolver</span><span class="o">().</span><span class="na">addProvider</span><span class="o">(</span><span class="n">StatusContract</span><span class="o">.</span><span class="na">AUTHORITY</span><span class="o">,</span> <span class="n">getProvider</span><span class="o">());</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">testInsertItem</span><span class="o">()</span> <span class="o">{</span>
+
+        <span class="n">ContentValues</span> <span class="n">values</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ContentValues</span><span class="o">();</span>
+
+        <span class="n">values</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">StatusContract</span><span class="o">.</span><span class="na">Column</span><span class="o">.</span><span class="na">ID</span><span class="o">,</span> <span class="mi">100</span><span class="o">);</span>
+        <span class="n">values</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">StatusContract</span><span class="o">.</span><span class="na">Column</span><span class="o">.</span><span class="na">USER</span><span class="o">,</span> <span class="s">&quot;Test User&quot;</span><span class="o">);</span>
+        <span class="n">values</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">StatusContract</span><span class="o">.</span><span class="na">Column</span><span class="o">.</span><span class="na">MESSAGE</span><span class="o">,</span> <span class="s">&quot;My tweet&quot;</span><span class="o">);</span>
+        <span class="n">values</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">StatusContract</span><span class="o">.</span><span class="na">Column</span><span class="o">.</span><span class="na">CREATED_AT</span><span class="o">,</span> <span class="k">new</span> <span class="n">Date</span><span class="o">().</span><span class="na">getTime</span><span class="o">());</span>
+
+        <span class="n">Uri</span> <span class="n">uri</span> <span class="o">=</span> <span class="n">getMockContentResolver</span><span class="o">().</span><span class="na">insert</span><span class="o">(</span><span class="n">StatusContract</span><span class="o">.</span><span class="na">CONTENT_URI</span><span class="o">,</span> <span class="n">values</span><span class="o">);</span>
+
+        <span class="n">Cursor</span> <span class="n">cursor</span> <span class="o">=</span> <span class="n">getMockContentResolver</span><span class="o">().</span><span class="na">query</span><span class="o">(</span><span class="n">uri</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+        <span class="n">assertEquals</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="n">cursor</span><span class="o">.</span><span class="na">getCount</span><span class="o">());</span>
+        <span class="c1">// move to first row</span>
+        <span class="n">cursor</span><span class="o">.</span><span class="na">moveToNext</span><span class="o">();</span>
+        <span class="n">assertEquals</span><span class="o">(</span><span class="s">&quot;My tweet&quot;</span><span class="o">,</span> <span class="n">cursor</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="n">cursor</span><span class="o">.</span><span class="na">getColumnIndex</span><span class="o">(</span><span class="s">&quot;message&quot;</span><span class="o">)));</span>
+    <span class="o">}</span>
+
+<span class="o">}</span>
+</pre></div></div></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon note">
+</td>
+<td class="content">The instructor will provide a demo of unit test configuration.</td>
+</tr></table>
+</div>
+</li>
+<li>
+<p>
+Insert the YambaStatus objects into the content provider.
+This should be done in the <span class="monospaced">TimelineService</span> in the loop that processes the
+data returned from the yamba server.
+</p>
+<div class="listingblock">
+<div class="title">TimelineService.java</div>
 <div class="content"><div class="highlight"><pre><span class="n">ContentValues</span> <span class="n">values</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ContentValues</span><span class="o">();</span>
 
-<span class="n">values</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">YambaConstants</span><span class="o">.</span><span class="na">Column</span><span class="o">.</span><span class="na">ID</span><span class="o">,</span> <span class="n">status</span><span class="o">.</span><span class="na">getId</span><span class="o">());</span>
-<span class="n">values</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">YambaConstants</span><span class="o">.</span><span class="na">Column</span><span class="o">.</span><span class="na">USER</span><span class="o">,</span> <span class="n">status</span><span class="o">.</span><span class="na">getUser</span><span class="o">());</span>
-<span class="n">values</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">YambaConstants</span><span class="o">.</span><span class="na">Column</span><span class="o">.</span><span class="na">MESSAGE</span><span class="o">,</span> <span class="n">status</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
-<span class="n">values</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">YambaConstants</span><span class="o">.</span><span class="na">Column</span><span class="o">.</span><span class="na">CREATED_AT</span><span class="o">,</span> <span class="n">status</span><span class="o">.</span><span class="na">getCreatedAt</span><span class="o">().</span><span class="na">getTime</span><span class="o">());</span>
+<span class="n">values</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">StatusContract</span><span class="o">.</span><span class="na">Column</span><span class="o">.</span><span class="na">ID</span><span class="o">,</span> <span class="n">status</span><span class="o">.</span><span class="na">getId</span><span class="o">());</span>
+<span class="n">values</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">StatusContract</span><span class="o">.</span><span class="na">Column</span><span class="o">.</span><span class="na">USER</span><span class="o">,</span> <span class="n">status</span><span class="o">.</span><span class="na">getUser</span><span class="o">());</span>
+<span class="n">values</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">StatusContract</span><span class="o">.</span><span class="na">Column</span><span class="o">.</span><span class="na">MESSAGE</span><span class="o">,</span> <span class="n">status</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+<span class="n">values</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">StatusContract</span><span class="o">.</span><span class="na">Column</span><span class="o">.</span><span class="na">CREATED_AT</span><span class="o">,</span> <span class="n">status</span><span class="o">.</span><span class="na">getCreatedAt</span><span class="o">().</span><span class="na">getTime</span><span class="o">());</span>
 
-<span class="n">Uri</span> <span class="n">uri</span> <span class="o">=</span> <span class="n">getContentResolver</span><span class="o">().</span><span class="na">insert</span><span class="o">(</span><span class="n">YambaConstants</span><span class="o">.</span><span class="na">CONTENT_URI</span><span class="o">,</span> <span class="n">values</span><span class="o">);</span>
+<span class="n">Uri</span> <span class="n">uri</span> <span class="o">=</span> <span class="n">getContentResolver</span><span class="o">().</span><span class="na">insert</span><span class="o">(</span><span class="n">StatusContract</span><span class="o">.</span><span class="na">CONTENT_URI</span><span class="o">,</span> <span class="n">values</span><span class="o">);</span>
 </pre></div></div></div>
+</li>
+<li>
+<p>
+Add a menu option for removing the statuses from the content provider.
+Use the following code to delete all rows.
+</p>
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span class="kt">int</span> <span class="n">rows</span> <span class="o">=</span> <span class="n">getContentResolver</span><span class="o">().</span><span class="na">delete</span><span class="o">(</span><span class="n">StatusContract</span><span class="o">.</span><span class="na">CONTENT_URI</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+</pre></div></div></div>
+</li>
+<li>
+<p>
+View the database on the device
+</p>
+<div class="olist loweralpha"><ol class="loweralpha">
+<li>
+<p>
+Open the database and run SQL against it. You can find out how to use the tools at the following URLs.
+</p>
+<div class="paragraph"><p><a href="http://developer.android.com/guide/developing/tools/adb.html">http://developer.android.com/guide/developing/tools/adb.html</a></p></div>
+<div class="paragraph"><p><a href="http://developer.android.com/guide/developing/tools/sqlite3.html">http://developer.android.com/guide/developing/tools/sqlite3.html</a></p></div>
+<div class="paragraph"><p><a href="http://www.sqlite.org/cli.html">http://www.sqlite.org/cli.html</a></p></div>
+</li>
+<li>
+<p>
+Change to the tools directory. The tools are in "&lt;sdk_home&gt;/platform-tools"
+</p>
+</li>
+<li>
+<p>
+Start the adb shell
+</p>
+<div class="listingblock">
+<div class="content monospaced">
+<pre>adb shell</pre>
+</div></div>
+<div class="paragraph"><p>You should see a "\#" prompt on the command line.</p></div>
+<div class="paragraph"><p>Note: Mac users should run the following command (in the correct directory) instead:</p></div>
+<div class="listingblock">
+<div class="content monospaced">
+<pre>./adb shell</pre>
+</div></div>
+</li>
+<li>
+<p>
+Start the sqlite admin shell
+</p>
+<div class="listingblock">
+<div class="content monospaced">
+<pre>sqlite3 /data/data/com.thenewcircle.yamba/databases/timeline.db</pre>
+</div></div>
+<div class="paragraph"><p>You should see a "sqlite&gt;" prompt on the command line.</p></div>
+</li>
+<li>
+<p>
+Verify that the data is in the database
+</p>
+<div class="listingblock">
+<div class="content monospaced">
+<pre>.schema status
+select * from status;</pre>
+</div></div>
+</li>
+<li>
+<p>
+Exit both shells.
+</p>
+<div class="listingblock">
+<div class="content monospaced">
+<pre>.exit
+exit</pre>
+</div></div>
+</li>
+</ol></div>
+</li>
+</ol></div>
 </div>
 </div>
 </div>

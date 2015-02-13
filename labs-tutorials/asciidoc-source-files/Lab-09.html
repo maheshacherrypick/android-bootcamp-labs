@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="generator" content="AsciiDoc 8.6.8">
-<title>Lab 8.0 – Preferences</title>
+<title>Lab 9.0 – Preferences, cont&#8217;d</title>
 <style type="text/css">
 /* Shared CSS for AsciiDoc xhtml11 and html5 backends */
 
@@ -796,13 +796,13 @@ asciidoc.install();
 </head>
 <body class="article">
 <div id="header">
-<h1>Lab 8.0 – Preferences</h1>
+<h1>Lab 9.0 – Preferences, cont&#8217;d</h1>
 </div>
 <div id="content">
 <div class="sect1">
 <h2 id="_objective">Objective</h2>
 <div class="sectionbody">
-<div class="paragraph"><p>Update the Yamba app to use the preference framework to store username and password.</p></div>
+<div class="paragraph"><p>By the time this lab is complete, our Yamba app will have a refresh interval and server URI implemented in preferences.</p></div>
 </div>
 </div>
 <div class="sect1">
@@ -812,32 +812,17 @@ asciidoc.install();
 <div class="ulist"><ul>
 <li>
 <p>
-Using Preferences to store username and password
+Creating new entries in <span class="monospaced">preferences.xml</span>
 </p>
 </li>
 <li>
 <p>
-Creating a preferences XML
+Reading preferences for the refresh interval and server URI
 </p>
 </li>
 <li>
 <p>
-Creating menu items
-</p>
-</li>
-<li>
-<p>
-Starting activities from the menu
-</p>
-</li>
-<li>
-<p>
-Reading the preferences resource and storing preferences in field variables
-</p>
-</li>
-<li>
-<p>
-Demonstrating how Android UI pre-populates the preferences activity from the XML
+Adding notification handlers for activities that need to know when the preferences were updated
 </p>
 </li>
 </ul></div>
@@ -846,7 +831,7 @@ Demonstrating how Android UI pre-populates the preferences activity from the XML
 <div class="sect1">
 <h2 id="_setup">Setup</h2>
 <div class="sectionbody">
-<div class="paragraph"><p>Prior labs have been completed.</p></div>
+<div class="paragraph"><p>Lab 8.0 has been completed.</p></div>
 </div>
 </div>
 <div class="sect1">
@@ -855,273 +840,35 @@ Demonstrating how Android UI pre-populates the preferences activity from the XML
 <div class="olist arabic"><ol class="arabic">
 <li>
 <p>
-Create a preferences XML
+Create <span class="monospaced">refreshInterval</span> entry in <span class="monospaced">preferences.xml</span> .
 </p>
 </li>
 <li>
 <p>
-Create a new activity subclassing PreferenceActivity
+Create <span class="monospaced">serverUri</span> entry in <span class="monospaced">preferences.xml</span> .
 </p>
 </li>
 <li>
 <p>
-Call preference activity from menu
+Implement functionality to read the <span class="monospaced">refreshInterval</span> preference.
 </p>
 </li>
 <li>
 <p>
-Read from the preferences resource
+Implement functionality to read the <span class="monospaced">serverUri</span> preference.
 </p>
 </li>
 <li>
 <p>
-Assign listener for changes in preference values
+Identify activities that need to know when preferences were updated.
+</p>
+<div class="olist loweralpha"><ol class="loweralpha">
+<li>
+<p>
+Implement notification handlers for each of these activities.
 </p>
 </li>
 </ol></div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_detailed_steps">Detailed Steps</h2>
-<div class="sectionbody">
-<div class="olist arabic"><ol class="arabic">
-<li>
-<p>
-Create a preference XML directory under <span class="monospaced">res</span> and create a preference XML file
-</p>
-<div class="listingblock">
-<div class="title">res/xml/prefs.xml</div>
-<div class="content"><div class="highlight"><pre><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
-<span class="nt">&lt;PreferenceScreen</span> <span class="na">xmlns:android=</span><span class="s">&quot;http://schemas.android.com/apk/res/android&quot;</span><span class="nt">&gt;</span>
-
-        <span class="nt">&lt;EditTextPreference</span>
-            <span class="na">android:key=</span><span class="s">&quot;@string/prefsUsernameKey&quot;</span>
-            <span class="na">android:title=</span><span class="s">&quot;@string/prefsUsernameTitle&quot;</span> <span class="nt">/&gt;</span>
-        <span class="nt">&lt;EditTextPreference</span>
-            <span class="na">android:key=</span><span class="s">&quot;@string/prefsPasswordKey&quot;</span>
-            <span class="na">android:password=</span><span class="s">&quot;true&quot;</span>
-            <span class="na">android:title=</span><span class="s">&quot;@string/prefsPasswordTitle&quot;</span> <span class="nt">/&gt;</span>
-
-<span class="nt">&lt;/PreferenceScreen&gt;</span>
-</pre></div></div></div>
-</li>
-<li>
-<p>
-Add the string constants
-</p>
-<div class="listingblock">
-<div class="title">res/values/string.xml</div>
-<div class="content"><div class="highlight"><pre><span class="nt">&lt;string</span> <span class="na">name=</span><span class="s">&quot;prefsUsernameKey&quot;</span><span class="nt">&gt;</span>username<span class="nt">&lt;/string&gt;</span>
-<span class="nt">&lt;string</span> <span class="na">name=</span><span class="s">&quot;prefsUsernameTitle&quot;</span><span class="nt">&gt;</span>User Name<span class="nt">&lt;/string&gt;</span>
-<span class="nt">&lt;string</span> <span class="na">name=</span><span class="s">&quot;prefsPasswordKey&quot;</span><span class="nt">&gt;</span>password<span class="nt">&lt;/string&gt;</span>
-<span class="nt">&lt;string</span> <span class="na">name=</span><span class="s">&quot;prefsPasswordTitle&quot;</span><span class="nt">&gt;</span>Password<span class="nt">&lt;/string&gt;</span>
-</pre></div></div></div>
-</li>
-<li>
-<p>
-Create a preference activity called <span class="monospaced">SettingsActivity</span>
-</p>
-<div class="listingblock">
-<div class="content"><div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">SettingsActivity</span> <span class="kd">extends</span> <span class="n">PreferenceActivity</span> <span class="o">{</span>
-
-    <span class="nd">@Override</span>
-    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
-        <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">(</span><span class="n">savedInstanceState</span><span class="o">);</span>
-
-        <span class="c1">// Load the preferences from an XML resource</span>
-        <span class="n">addPreferencesFromResource</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">xml</span><span class="o">.</span><span class="na">prefs</span><span class="o">);</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-</pre></div></div></div>
-</li>
-<li>
-<p>
-Add <span class="monospaced">SettingsActivity</span> to Android Manifest
-</p>
-<div class="listingblock">
-<div class="content"><div class="highlight"><pre><span class="nt">&lt;activity</span>
-    <span class="na">android:name=</span><span class="s">&quot;.SettingsActivity&quot;</span>
-    <span class="na">android:label=</span><span class="s">&quot;Settings&quot;</span> <span class="nt">&gt;</span>
-<span class="nt">&lt;/activity&gt;</span>
-</pre></div></div></div>
-</li>
-<li>
-<p>
-Create menu.xml
-</p>
-<div class="listingblock">
-<div class="title">res/menu/menu.xml</div>
-<div class="content"><div class="highlight"><pre><span class="nt">&lt;menu</span> <span class="na">xmlns:android=</span><span class="s">&quot;http://schemas.android.com/apk/res/android&quot;</span>
-    <span class="na">xmlns:tools=</span><span class="s">&quot;http://schemas.android.com/tools&quot;</span>
-    <span class="na">tools:context=</span><span class="s">&quot;.MyActivity&quot;</span> <span class="nt">&gt;</span>
-
-    <span class="nt">&lt;item</span> <span class="na">android:id=</span><span class="s">&quot;@+id/action_settings&quot;</span>
-        <span class="na">android:title=</span><span class="s">&quot;@string/action_settings&quot;</span>
-        <span class="na">android:orderInCategory=</span><span class="s">&quot;100&quot;</span>
-        <span class="na">android:showAsAction=</span><span class="s">&quot;never&quot;</span> <span class="nt">/&gt;</span>
-
-<span class="nt">&lt;/menu&gt;</span>
-</pre></div></div></div>
-</li>
-<li>
-<p>
-Add the string constants used in the <span class="monospaced">menu.xml</span> file
-</p>
-<div class="listingblock">
-<div class="title">res/values/string.xml</div>
-<div class="content"><div class="highlight"><pre><span class="nt">&lt;string</span> <span class="na">name=</span><span class="s">&quot;action_settings&quot;</span><span class="nt">&gt;</span>Settings<span class="nt">&lt;/string&gt;</span>
-</pre></div></div></div>
-</li>
-<li>
-<p>
-Update <span class="monospaced">StatusActivity</span> to build menu
-</p>
-<div class="listingblock">
-<div class="content"><div class="highlight"><pre><span class="nd">@Override</span>
-<span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">onCreateOptionsMenu</span><span class="o">(</span><span class="n">Menu</span> <span class="n">menu</span><span class="o">)</span> <span class="o">{</span>
-    <span class="c1">// Inflate the menu; this adds items to the action bar if it is present.</span>
-    <span class="kd">super</span><span class="o">.</span><span class="na">onCreateOptionsMenu</span><span class="o">(</span><span class="n">menu</span><span class="o">);</span>
-    <span class="n">getMenuInflater</span><span class="o">().</span><span class="na">inflate</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">menu</span><span class="o">.</span><span class="na">menu</span><span class="o">,</span> <span class="n">menu</span><span class="o">);</span>
-    <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
-<span class="o">}</span>
-
-<span class="nd">@Override</span>
-<span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">onOptionsItemSelected</span><span class="o">(</span><span class="n">MenuItem</span> <span class="n">item</span><span class="o">)</span> <span class="o">{</span>
-
-    <span class="kt">int</span> <span class="n">id</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="na">getItemId</span><span class="o">();</span>
-
-    <span class="k">if</span> <span class="o">(</span><span class="n">id</span> <span class="o">==</span> <span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">action_settings</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
-    <span class="o">}</span>
-
-    <span class="k">return</span> <span class="kd">super</span><span class="o">.</span><span class="na">onOptionsItemSelected</span><span class="o">(</span><span class="n">item</span><span class="o">);</span>
-<span class="o">}</span>
-</pre></div></div></div>
-<div class="admonitionblock">
-<table><tr>
-<td class="icon note">
-</td>
-<td class="content">Depending on how you created the initial version of <span class="monospaced">StatusActivity</span>
-the menu methods may have already been generated for you.</td>
-</tr></table>
-</div>
-</li>
-<li>
-<p>
-Call <span class="monospaced">SettingActivity</span> when "Settings" menu item is selected
-</p>
-<div class="listingblock">
-<div class="content"><div class="highlight"><pre><span class="k">if</span> <span class="o">(</span><span class="n">id</span> <span class="o">==</span> <span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">action_settings</span><span class="o">)</span> <span class="o">{</span>
-
-    <span class="n">Intent</span> <span class="n">activityIntent</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Intent</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">SettingsActivity</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
-    <span class="n">startActivity</span><span class="o">(</span><span class="n">activityIntent</span><span class="o">);</span>
-
-    <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
-<span class="o">}</span>
-</pre></div></div></div>
-</li>
-<li>
-<p>
-Read preference values from preferences framework
-</p>
-<div class="listingblock">
-<div class="content"><div class="highlight"><pre><span class="n">SharedPreferences</span> <span class="n">prefs</span> <span class="o">=</span> <span class="n">PreferenceManager</span><span class="o">.</span><span class="na">getDefaultSharedPreferences</span><span class="o">(</span><span class="n">StatusActivity</span><span class="o">.</span><span class="na">this</span><span class="o">);</span>
-
-<span class="n">String</span> <span class="n">USERNAME_KEY</span> <span class="o">=</span> <span class="n">getResources</span><span class="o">().</span><span class="na">getString</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">string</span><span class="o">.</span><span class="na">prefsUsernameKey</span><span class="o">);</span>
-<span class="n">String</span> <span class="n">PASSWORD_KEY</span> <span class="o">=</span> <span class="n">getResources</span><span class="o">().</span><span class="na">getString</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">string</span><span class="o">.</span><span class="na">prefsPasswordKey</span><span class="o">);</span>
-
-<span class="n">username</span> <span class="o">=</span> <span class="n">sharedPreferences</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="n">USERNAME_KEY</span><span class="o">,</span> <span class="s">&quot;student&quot;</span><span class="o">);</span>
-<span class="n">password</span> <span class="o">=</span> <span class="n">sharedPreferences</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="n">PASSWORD_KEY</span><span class="o">,</span> <span class="s">&quot;password&quot;</span><span class="o">);</span>
-</pre></div></div></div>
-</li>
-<li>
-<p>
-Implement preference change listener in <span class="monospaced">StatusActivity</span>
-</p>
-<div class="listingblock">
-<div class="title">com.thenewcircle.yamba.StatusActivity.java</div>
-<div class="content"><div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">StatusActivity</span>
-    <span class="kd">extends</span> <span class="n">Activity</span>
-    <span class="kd">implements</span> <span class="n">SharedPreferences</span><span class="o">.</span><span class="na">OnSharedPreferenceChangeListener</span> <span class="o">{</span>
-</pre></div></div></div>
-<div class="listingblock">
-<div class="title">com.thenewcircle.yamba.StatusActivity.java</div>
-<div class="content"><div class="highlight"><pre><span class="nd">@Override</span>
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onSharedPreferenceChanged</span><span class="o">(</span><span class="n">SharedPreferences</span> <span class="n">sharedPreferences</span><span class="o">,</span> <span class="n">String</span> <span class="n">key</span><span class="o">)</span> <span class="o">{</span>
-
-    <span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span><span class="s">&quot;onSharedPreferenceChanged&quot;</span><span class="o">);</span>
-
-    <span class="n">String</span> <span class="n">USERNAME_KEY</span> <span class="o">=</span> <span class="n">getResources</span><span class="o">().</span><span class="na">getString</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">string</span><span class="o">.</span><span class="na">prefsUsernameKey</span><span class="o">);</span>
-    <span class="n">String</span> <span class="n">PASSWORD_KEY</span> <span class="o">=</span> <span class="n">getResources</span><span class="o">().</span><span class="na">getString</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">string</span><span class="o">.</span><span class="na">prefsPasswordKey</span><span class="o">);</span>
-
-    <span class="n">username</span> <span class="o">=</span> <span class="n">sharedPreferences</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="n">USERNAME_KEY</span><span class="o">,</span> <span class="s">&quot;student&quot;</span><span class="o">);</span>
-    <span class="n">password</span> <span class="o">=</span> <span class="n">sharedPreferences</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="n">PASSWORD_KEY</span><span class="o">,</span> <span class="s">&quot;password&quot;</span><span class="o">);</span>
-<span class="o">}</span>
-</pre></div></div></div>
-<div class="admonitionblock">
-<table><tr>
-<td class="icon note">
-</td>
-<td class="content">You may want to refactor the code to remove the duplicate lookup of the keys
-for username and password</td>
-</tr></table>
-</div>
-</li>
-<li>
-<p>
-Register preferences change listener in <span class="monospaced">StatusActivity</span>
-</p>
-<div class="listingblock">
-<div class="content"><div class="highlight"><pre><span class="nd">@Override</span>
-<span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onResume</span><span class="o">()</span> <span class="o">{</span>
-    <span class="kd">super</span><span class="o">.</span><span class="na">onResume</span><span class="o">();</span>
-    <span class="n">PreferenceManager</span><span class="o">.</span><span class="na">getDefaultSharedPreferences</span><span class="o">(</span><span class="k">this</span><span class="o">)</span>
-            <span class="o">.</span><span class="na">registerOnSharedPreferenceChangeListener</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
-<span class="o">}</span>
-</pre></div></div></div>
-<div class="admonitionblock">
-<table><tr>
-<td class="icon caution">
-</td>
-<td class="content">Would it be better to register the listener in the <span class="monospaced">onCreate</span> method?
-What is the impact of registering the listener twice?</td>
-</tr></table>
-</div>
-</li>
-<li>
-<p>
-Unregister preferences change listener in <span class="monospaced">StatusActivity</span> when the activity is destroyed.
-</p>
-<div class="listingblock">
-<div class="content"><div class="highlight"><pre><span class="nd">@Override</span>
-<span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onDestroy</span><span class="o">()</span> <span class="o">{</span>
-    <span class="kd">super</span><span class="o">.</span><span class="na">onDestroy</span><span class="o">();</span>
-    <span class="n">PreferenceManager</span><span class="o">.</span><span class="na">getDefaultSharedPreferences</span><span class="o">(</span><span class="k">this</span><span class="o">)</span>
-            <span class="o">.</span><span class="na">unregisterOnSharedPreferenceChangeListener</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
-<span class="o">}</span>
-</pre></div></div></div>
-</li>
-<li>
-<p>
-Register for Yamba account
-</p>
-<div class="ulist"><ul>
-<li>
-<p>
-Login to <a href="http://yamba.marakana.com">http://yamba.marakana.com</a> as "student/password"
-</p>
-</li>
-<li>
-<p>
-Invite yourself and register for an account.
-</p>
-</li>
-<li>
-<p>
-Update the preferences with your new username and password.
-</p>
-</li>
-</ul></div>
 </li>
 </ol></div>
 </div>
